@@ -8,6 +8,9 @@
 *.apk
 *.ap_
 
+# Secret files
+./app/src/main/res/values/secrets.xml
+
 # Files for the ART/Dalvik VM
 *.dex
 
