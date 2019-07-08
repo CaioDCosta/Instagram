@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 			public void onClick(View view) {
 				final String username = etUsername.getText().toString();
 				final String password = etPassword.getText().toString();
+				Log.d("LoginActivity", "Click");
 				login(username, password);
 			}
 		});
@@ -43,11 +44,11 @@ public class LoginActivity extends AppCompatActivity {
 		ParseUser.logInInBackground(username, password, new LogInCallback() {
 			@Override
 			public void done(ParseUser user, ParseException e) {
-				if(e != null) {
+				if(e == null) {
 					Log.d("LoginActivity", "Login successful!");
 				}
 				else {
-					Log.d("LoginActivity", "Login failure.");
+					Log.e("LoginActivity", "Login failure.");
 					e.printStackTrace();
 				}
 			}

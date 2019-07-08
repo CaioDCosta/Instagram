@@ -10,7 +10,7 @@ public class ParseApp extends Application {
 		super.onCreate();
 		final Parse.Configuration config = new Parse.Configuration.Builder(this)
 				.applicationId("fbu-instagram").clientKey("debonair-ossified-detective")
-				.server("http://caiodcosta-fbu-instagram.herokuapp.com/parse").build();
+				.server("https://caiodcosta-fbu-instagram.herokuapp.com/parse").build();
 		Parse.initialize(config);
 	}
 }
