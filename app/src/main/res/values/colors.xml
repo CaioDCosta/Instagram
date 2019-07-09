@@ -82,6 +82,11 @@
     <color name="catalyst_redbox_background">#eecc0000</color>
     <color name="click_background">#33141823</color>
     <color name="close_button_tint_color">#ff6a7180</color>
+    <color name="colorNavText">@color/black</color>
+    <color name="colorNavIcon">@color/black</color>
+    <color name="colorPrimary">@color/grey_7</color>
+    <color name="colorPrimaryDark">@color/black</color>
+    <color name="colorAccent">@color/orange_7</color>
     <color name="common_google_signin_btn_text_dark_default">@android:color/white</color>
     <color name="common_google_signin_btn_text_dark_disabled">#1f000000</color>
     <color name="common_google_signin_btn_text_dark_focused">@android:color/black</color>
@@ -234,9 +239,13 @@
     <color name="refreshable_progress_drawable_background">@color/grey_1</color>
     <color name="refreshable_progress_drawable_track">@color/grey_3</color>
     <color name="reg_icon_tint">@color/grey_9</color>
+    <color name="reg_textbox_text_color">@color/black</color>
+    <color name="reg_textbox_hint_color">@color/grey_6</color>
+
     <color name="reg_token_border">#ffececec</color>
     <color name="reg_token_fill">#fffbfbfb</color>
     <color name="reg_token_text">#ffa4a8ab</color>
+
     <color name="result_bar_active_color">#ff4999da</color>
     <color name="share_screen_icon_color">#ff4a5158</color>
     <color name="slider_gradient_background">@color/grey_2</color>

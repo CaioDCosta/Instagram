@@ -13,7 +13,7 @@
         <item name="android:background">?modalActionBarBackground</item>
     </style>
     <style name="ActionBarButton">
-        <item name="android:background">@drawable/action_bar_blue_button_background</item>
+        <!--<item name="android:background">@drawable/action_bar_blue_button_background</item>-->
         <item name="android:layout_width">@dimen/action_bar_height</item>
         <item name="android:layout_height">@dimen/action_bar_height</item>
         <item name="android:scaleType">center</item>
@@ -82,8 +82,8 @@
     </style>
     <style name="AlertDialogTitleText" parent="@style/GenericHeaderText" />
     <style name="Animation.Catalyst.RedBox" parent="@android:style/Animation">
-        <item name="android:windowEnterAnimation">@anim/catalyst_push_up_in</item>
-        <item name="android:windowExitAnimation">@anim/catalyst_push_up_out</item>
+        <!--<item name="android:windowEnterAnimation">@anim/catalyst_push_up_in</item>-->
+        <!--<item name="android:windowExitAnimation">@anim/catalyst_push_up_out</item>-->
     </style>
     <style name="Avatar">
         <item name="placeholder">@color/image_placeholder</item>
@@ -194,7 +194,7 @@
         <item name="android:layout_width">@dimen/avatar_reel_ring_size_large</item>
         <item name="android:layout_height">@dimen/avatar_reel_ring_size_large</item>
     </style>
-    <style name="Base.Theme" parent="@android:style/Theme.Holo.Light">
+    <style name="Base.Theme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="backgroundColorPrimaryDark">@color/status_bar_background</item>
     </style>
     <style name="Base.Theme.Instagram" parent="@style/Base.Theme">
@@ -211,24 +211,24 @@
         <item name="android:textColorLink">@color/blue_5</item>
         <item name="android:soundEffectsEnabled">false</item>
         <item name="android:dialogTheme">@style/IgDialog</item>
-        <item name="appName">@string/instagram</item>
+        <item name="appName">@string/app_name</item>
         <item name="backgroundColorHighlight">@color/red_5</item>
         <item name="backgroundColorHighlightPressed">@color/red_6</item>
         <item name="backgroundColorPrimary">@color/white</item>
         <item name="backgroundColorSecondary">@color/white</item>
-        <item name="backgroundDrawable">@drawable/bg_simple_row</item>
-        <item name="backgroundNotificationBadge">@drawable/notification_bubble_whiteout</item>
-        <item name="backgroundUnseenDrawable">@drawable/bg_simple_row_unseen</item>
-        <item name="badgeIndicatorBackgroundDrawable">@drawable/badge_indicator_background</item>
+        <!--<item name="backgroundDrawable">@drawable/bg_simple_row</item>-->
+        <!--<item name="backgroundNotificationBadge">@drawable/notification_bubble_whiteout</item>-->
+        <!--<item name="backgroundUnseenDrawable">@drawable/bg_simple_row_unseen</item>-->
+        <!--<item name="badgeIndicatorBackgroundDrawable">@drawable/badge_indicator_background</item>-->
         <item name="cameraButtonStyle">@style/DefaultCameraButtonStyle</item>
-        <item name="defaultNotificationIcon">@drawable/notification_icon</item>
+        <!--<item name="defaultNotificationIcon">@drawable/notification_icon</item>-->
         <item name="defaultSpinnerStyle">@style/SpinnerTextStyle.Whiteout</item>
-        <item name="directEphemeralReplyPillIcon">@drawable/button_icon_camera_gradient</item>
+        <!--<item name="directEphemeralReplyPillIcon">@drawable/button_icon_camera_gradient</item>-->
         <item name="directGradientEnd">@color/direct_blue_gradient_dark</item>
         <item name="directGradientStart">@color/direct_blue_gradient_light</item>
         <item name="directInboxFooterButtonType">camera</item>
         <item name="directInboxInlineCameraTintColor">@color/grey_9</item>
-        <item name="directInboxUnseenEphemeralMessageIndicator">@drawable/blue_play_icon</item>
+        <!--<item name="directInboxUnseenEphemeralMessageIndicator">@drawable/blue_play_icon</item>-->
         <item name="directPaletteColor0">@color/blue_0</item>
         <item name="directPaletteColor1">@color/blue_1</item>
         <item name="directPaletteColor2">@color/blue_2</item>
@@ -239,8 +239,8 @@
         <item name="directPaletteColor7">@color/blue_7</item>
         <item name="directPaletteColor8">@color/blue_8</item>
         <item name="directPaletteColor9">@color/blue_9</item>
-        <item name="directPaletteGradientDrawable">@drawable/direct_blue_message_gradient</item>
-        <item name="directPaletteGradientSelector">@drawable/bg_blue_selectable_gradient</item>
+        <!--<item name="directPaletteGradientDrawable">@drawable/direct_blue_message_gradient</item>-->
+        <!--<item name="directPaletteGradientSelector">@drawable/bg_blue_selectable_gradient</item>-->
         <item name="directPresenceLargeBubbleColor">@color/blue_5_10_transparent</item>
         <item name="directPresenceSmallBubbleColor">@color/blue_5_20_transparent</item>
         <item name="directRingGradientColor1">@color/direct_blue_ring_gradient_colour1</item>
@@ -248,33 +248,33 @@
         <item name="directRingGradientColor3">@color/direct_blue_ring_gradient_colour3</item>
         <item name="directRingGradientColor4">@color/direct_blue_ring_gradient_colour4</item>
         <item name="directRingGradientColor5">@color/direct_blue_ring_gradient_colour5</item>
-        <item name="directRoundedBubbleBackground">@drawable/rounded_bubble_background_gradient_blue</item>
-        <item name="directRoundedBubbleSelector">@drawable/rounded_bubble_background_blue_selector</item>
-        <item name="directTextColorSelector">@drawable/blue_text_color_selector</item>
-        <item name="directVisualMessageThumbnailMask">@drawable/unseen_permanent_visual_thumbnail_mask</item>
+        <!--<item name="directRoundedBubbleBackground">@drawable/rounded_bubble_background_gradient_blue</item>-->
+        <!--<item name="directRoundedBubbleSelector">@drawable/rounded_bubble_background_blue_selector</item>-->
+        <!--<item name="directTextColorSelector">@drawable/blue_text_color_selector</item>-->
+        <!--<item name="directVisualMessageThumbnailMask">@drawable/unseen_permanent_visual_thumbnail_mask</item>-->
         <item name="dividerColor">@color/grey_2</item>
         <item name="glyphColorPrimary">@color/grey_9</item>
         <item name="glyphColorSecondary">@color/grey_5</item>
         <item name="glyphColorSecondaryActive">@color/grey_9</item>
         <item name="igSwitchStyle">@style/IgSwitchStyle</item>
         <item name="quickCaptureControllerAllowCameraTooltip">true</item>
-        <item name="quickCaptureControllerBottomShadowDrawable">@drawable/reel_viewer_shadow_bottom</item>
-        <item name="quickCaptureControllerCameraSwitchButton">@drawable/flip_states</item>
+        <!--<item name="quickCaptureControllerBottomShadowDrawable">@drawable/reel_viewer_shadow_bottom</item>-->
+        <!--<item name="quickCaptureControllerCameraSwitchButton">@drawable/flip_states</item>-->
         <item name="quickCaptureControllerDirectReplyHeaderBackground">@null</item>
         <item name="quickCaptureControllerDirectReplyHeaderMinHeight">40.0dip</item>
-        <item name="quickCaptureControllerFaceFilterButton">@drawable/smile_states</item>
+        <!--<item name="quickCaptureControllerFaceFilterButton">@drawable/smile_states</item>-->
         <item name="quickCaptureControllerFaceFilterButtonProgressIndicatorMargin">10.0dip</item>
         <item name="quickCaptureControllerFaceFilterButtonProgressIndicatorSize">28.0dip</item>
-        <item name="quickCaptureControllerFlashButton">@drawable/flash_states</item>
-        <item name="quickCaptureControllerGalleryButton">@drawable/overlay_gallery_icon</item>
+        <!--<item name="quickCaptureControllerFlashButton">@drawable/flash_states</item>-->
+        <!--<item name="quickCaptureControllerGalleryButton">@drawable/overlay_gallery_icon</item>-->
         <item name="quickCaptureControllerGalleryButtonSize">@dimen/quick_capture_gallery_preview_button_size</item>
         <item name="quickCaptureControllerShadowHeight">70.0dip</item>
         <item name="quickCaptureControllerShutterButtonSize">80.0dip</item>
         <item name="quickCaptureControllerTextModeDefaultBackgroundColor">?directPaletteColor5</item>
-        <item name="quickCaptureControllerTopShadowDrawable">@drawable/reel_viewer_shadow_top</item>
+        <!--<item name="quickCaptureControllerTopShadowDrawable">@drawable/reel_viewer_shadow_top</item>-->
         <item name="quickCaptureFormatPickerLabelHorizontalMargin">8.0dip</item>
         <item name="segmentedUnderlineWidth">@dimen/segmented_underline_width_whiteout</item>
-        <item name="storySendButtonGradientDrawable">@drawable/all_story_gradient</item>
+        <!--<item name="storySendButtonGradientDrawable">@drawable/all_story_gradient</item>-->
         <item name="textColorBoldLink">@color/grey_9</item>
         <item name="textColorHyperlink">@color/blue_8</item>
         <item name="textColorPrimary">@color/grey_9</item>
@@ -282,8 +282,8 @@
         <item name="textColorSecondary">@color/grey_5</item>
         <item name="textColorSelected">@color/grey_9</item>
         <item name="textColorTertiary">@color/grey_3</item>
-        <item name="tokenTextViewBackground">@drawable/token_text_view_background</item>
-        <item name="tokenTextViewTextColor">@color/token_text_view_text</item>
+        <!--<item name="tokenTextViewBackground">@drawable/token_text_view_background</item>-->
+        <!--<item name="tokenTextViewTextColor">@color/token_text_view_text</item>-->
     </style>
     <style name="Body" parent="@style/IgPrimaryText">
         <item name="android:textSize">@dimen/font_medium</item>
@@ -356,22 +356,22 @@
     <style name="BusinessInlineErrorMessageViewStyle">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="errorBackground">@drawable/business_reg_inline_error_bg</item>
+        <!--<item name="errorBackground">@drawable/business_reg_inline_error_bg</item>-->
         <item name="errorColor">@color/red_5</item>
         <item name="hintColor">@color/grey_5</item>
     </style>
     <style name="BusinessProgressButtonStyle">
-        <item name="android:background">@drawable/business_action_button</item>
+        <!--<item name="android:background">@drawable/business_action_button</item>-->
         <item name="android:paddingLeft">@dimen/reg_margin_xsmall</item>
         <item name="android:paddingRight">@dimen/reg_margin_xsmall</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">@dimen/reg_button_height</item>
         <item name="android:layout_marginTop">@dimen/reg_margin_small</item>
-        <item name="android:text">@string/next</item>
+        <!--<item name="android:text">@string/next</item>-->
         <item name="progressBarTint">@color/blue_5</item>
     </style>
     <style name="BusinessRegContainerStyle">
-        <item name="android:background">@drawable/business_reg_text_field_bg</item>
+        <!--<item name="android:background">@drawable/business_reg_text_field_bg</item>-->
     </style>
     <style name="BusinessRegEditTextStyle">
         <item name="android:textSize">@dimen/font_medium</item>
@@ -441,23 +441,23 @@
         <item name="android:textColor">@color/white</item>
     </style>
     <style name="ButtonPrimaryInverse" parent="@style/ButtonPrimary">
-        <item name="android:textColor">@drawable/primary_button_inverse_textcolor_selector</item>
+        <!--<item name="android:textColor">@drawable/primary_button_inverse_textcolor_selector</item>-->
     </style>
     <style name="ButtonSecondary" parent="@style/ButtonPrimary">
         <item name="android:textColor">@color/grey_9</item>
     </style>
     <style name="ButtonSecondaryInverse" parent="@style/ButtonPrimary">
-        <item name="android:textColor">@drawable/secondary_button_inverse_textcolor_selector</item>
+        <!--<item name="android:textColor">@drawable/secondary_button_inverse_textcolor_selector</item>-->
     </style>
     <style name="ButtonStyle" parent="@android:style/Widget.Button">
         <item name="android:textSize">@dimen/font_medium</item>
         <item name="android:textColor">?textColorPrimary</item>
     </style>
     <style name="ButtonUpdatable" parent="@style/ButtonPrimary">
-        <item name="android:textColor">@drawable/button_textcolor_selector</item>
+        <!--<item name="android:textColor">@drawable/button_textcolor_selector</item>-->
     </style>
     <style name="ButtonUpdatableInverse" parent="@style/ButtonPrimary">
-        <item name="android:textColor">@drawable/button_inverse_textcolor_selector</item>
+        <!--<item name="android:textColor">@drawable/button_inverse_textcolor_selector</item>-->
     </style>
     <style name="CapturePickerLabel">
         <item name="android:textSize">12.0dip</item>
@@ -521,12 +521,12 @@
     </style>
     <style name="CustomToast" />
     <style name="CustomToast.Fade" parent="@android:style/Animation">
-        <item name="android:windowEnterAnimation">@anim/toast_fade_in</item>
-        <item name="android:windowExitAnimation">@anim/toast_fade_out</item>
+        <!--<item name="android:windowEnterAnimation">@anim/toast_fade_in</item>-->
+        <!--<item name="android:windowExitAnimation">@anim/toast_fade_out</item>-->
     </style>
     <style name="CustomToast.Red" parent="@style/CustomToast">
-        <item name="notificationNub">@drawable/notification_tooltip_nub_whiteout</item>
-        <item name="notificationTooltip">@drawable/notification_tooltip_whiteout</item>
+        <!--<item name="notificationNub">@drawable/notification_tooltip_nub_whiteout</item>-->
+        <!--<item name="notificationTooltip">@drawable/notification_tooltip_whiteout</item>-->
     </style>
     <style name="CustomToast.Text" parent="@android:style/Widget.TextView">
         <item name="android:textSize">12.0sp</item>
@@ -551,12 +551,12 @@
         <item name="progressGradientPatternStyle">@style/GradientPatternStyle</item>
     </style>
     <style name="DialogAnimationFade">
-        <item name="android:windowEnterAnimation">@anim/catalyst_fade_in</item>
-        <item name="android:windowExitAnimation">@anim/catalyst_fade_out</item>
+        <!--<item name="android:windowEnterAnimation">@anim/catalyst_fade_in</item>-->
+        <!--<item name="android:windowExitAnimation">@anim/catalyst_fade_out</item>-->
     </style>
     <style name="DialogAnimationSlide">
-        <item name="android:windowEnterAnimation">@anim/catalyst_slide_up</item>
-        <item name="android:windowExitAnimation">@anim/catalyst_slide_down</item>
+        <!--<item name="android:windowEnterAnimation">@anim/catalyst_slide_up</item>-->
+        <!--<item name="android:windowExitAnimation">@anim/catalyst_slide_down</item>-->
     </style>
     <style name="DialogTitleText">
         <item name="android:textSize">@dimen/font_small</item>
@@ -662,7 +662,7 @@
         <item name="android:textSize">@dimen/font_medium</item>
         <item name="android:textColor">?textColorPrimary</item>
         <item name="android:textColorHint">@color/grey_3</item>
-        <item name="android:background">@drawable/input_background</item>
+        <!--<item name="android:background">@drawable/input_background</item>-->
         <item name="android:paddingLeft">@dimen/row_text_padding</item>
         <item name="android:paddingRight">@dimen/row_text_padding</item>
     </style>
@@ -719,7 +719,7 @@
     </style>
     <style name="FilledButtonStyle">
         <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/button_grey_background</item>
+        <!--<item name="android:background">@drawable/button_grey_background</item>-->
         <item name="android:paddingLeft">@dimen/row_text_padding</item>
         <item name="android:paddingRight">@dimen/row_text_padding</item>
         <item name="android:layout_height">28.0dip</item>
@@ -759,8 +759,8 @@
         <item name="android:windowFullscreen">true</item>
     </style>
     <style name="FullScreenVideoDialogAnimations">
-        <item name="android:windowEnterAnimation">@anim/fade_in</item>
-        <item name="android:windowExitAnimation">@anim/fade_out</item>
+        <!--<item name="android:windowEnterAnimation">@anim/fade_in</item>-->
+        <!--<item name="android:windowExitAnimation">@anim/fade_out</item>-->
     </style>
     <style name="GDPRLinkStyle" parent="@android:style/Widget.TextView">
         <item name="android:textSize">@dimen/content_text_size</item>
@@ -775,7 +775,7 @@
         <item name="android:textSize">@dimen/edit_text_size</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">@dimen/radio_button_height</item>
-        <item name="android:button">@drawable/radio_button_selector</item>
+        <!--<item name="android:button">@drawable/radio_button_selector</item>-->
     </style>
     <style name="GenericHeaderText">
         <item name="android:textSize">@dimen/font_large</item>
@@ -800,7 +800,7 @@
     </style>
     <style name="HashtagFeedHeader">
         <item name="android:textSize">16.0sp</item>
-        <item name="android:textColor">@color/view_switcher_text_whiteout</item>
+        <!--<item name="android:textColor">@color/view_switcher_text_whiteout</item>-->
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center</item>
         <item name="android:maxLines">1</item>
@@ -815,26 +815,26 @@
         <item name="android:textSize">@dimen/font_xlarge</item>
     </style>
     <style name="HighlightTitleEditText">
-        <item name="android:hint">@string/highlights_name_hint</item>
+        <!--<item name="android:hint">@string/highlights_name_hint</item>-->
         <item name="android:maxLines">1</item>
         <item name="android:inputType">text</item>
         <item name="android:imeOptions">actionDone</item>
     </style>
     <style name="IgAutoCompleteTextView" parent="@style/IgAutoCompleteTextViewBase">
-        <item name="android:popupBackground">@drawable/auto_dropdown_background</item>
+        <!--<item name="android:popupBackground">@drawable/auto_dropdown_background</item>-->
     </style>
     <style name="IgAutoCompleteTextViewBase" parent="@android:style/Widget.AutoCompleteTextView">
         <item name="android:textSize">@dimen/font_medium</item>
         <item name="android:textColor">?textColorPrimary</item>
         <item name="android:textColorHint">@color/grey_3</item>
-        <item name="android:background">@drawable/input_background</item>
+        <!--<item name="android:background">@drawable/input_background</item>-->
         <item name="android:dropDownWidth">wrap_content</item>
     </style>
     <style name="IgBadgeViewStyle" parent="@style/TextViewStyle">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:background">@drawable/badge_background</item>
+        <!--<item name="android:background">@drawable/badge_background</item>-->
         <item name="android:includeFontPadding">false</item>
     </style>
     <style name="IgButton">
@@ -854,7 +854,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:background">@drawable/rounded_layout_border_stroke</item>
+        <!--<item name="android:background">@drawable/rounded_layout_border_stroke</item>-->
         <item name="android:padding">@dimen/connect_button_padding</item>
         <item name="android:layout_height">@dimen/connect_button_height</item>
         <item name="android:maxLines">1</item>
@@ -902,7 +902,7 @@
     <style name="IgFollowButtonBase">
         <item name="android:textSize">@dimen/font_medium</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/rounded_layout_border_stroke</item>
+        <!--<item name="android:background">@drawable/rounded_layout_border_stroke</item>-->
         <item name="android:paddingLeft">@dimen/row_text_padding</item>
         <item name="android:paddingRight">@dimen/row_text_padding</item>
         <item name="android:layout_height">@dimen/follow_button_height</item>
@@ -930,13 +930,13 @@
         <item name="android:adjustViewBounds">true</item>
     </style>
     <style name="IgInviteButtonStyle" parent="@style/IgUpdatableButtonStyle">
-        <item name="android:textColor">@drawable/button_textcolor_selector_invite</item>
-        <item name="android:background">@drawable/button_state_drawable_invite</item>
+        <!--<item name="android:textColor">@drawable/button_textcolor_selector_invite</item>-->
+        <!--<item name="android:background">@drawable/button_state_drawable_invite</item>-->
     </style>
     <style name="IgLinkButton">
         <item name="android:textSize">@dimen/font_xsmall</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/rounded_layout_border_stroke</item>
+        <!--<item name="android:background">@drawable/rounded_layout_border_stroke</item>-->
         <item name="android:paddingLeft">@dimen/row_text_padding</item>
         <item name="android:paddingRight">@dimen/row_text_padding</item>
         <item name="android:layout_width">wrap_content</item>
@@ -953,7 +953,7 @@
         <item name="android:background">?primaryButtonBackground</item>
     </style>
     <style name="IgPrimaryButton.Inverse" parent="@style/IgButton">
-        <item name="android:textColor">@drawable/primary_button_inverse_textcolor_selector</item>
+        <!--<item name="android:textColor">@drawable/primary_button_inverse_textcolor_selector</item>-->
         <item name="android:background">@null</item>
     </style>
     <style name="IgPrimaryButton.Inverse.Wrapped" parent="@style/IgPrimaryButton.Inverse">
@@ -983,10 +983,10 @@
     </style>
     <style name="IgSecondaryButton" parent="@style/IgButton">
         <item name="android:textColor">@color/grey_9</item>
-        <item name="android:background">@drawable/secondary_button_selector</item>
+        <!--<item name="android:background">@drawable/secondary_button_selector</item>-->
     </style>
     <style name="IgSecondaryButton.Inverse" parent="@style/IgButton">
-        <item name="android:textColor">@drawable/secondary_button_inverse_textcolor_selector</item>
+        <!--<item name="android:textColor">@drawable/secondary_button_inverse_textcolor_selector</item>-->
         <item name="android:background">@null</item>
     </style>
     <style name="IgSecondaryText" parent="@android:style/Widget.TextView">
@@ -1009,7 +1009,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?textColorPrimary</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:background">@drawable/bg_simple_row</item>
+        <!--<item name="android:background">@drawable/bg_simple_row</item>-->
         <item name="android:paddingLeft">28.0dip</item>
         <item name="android:paddingRight">28.0dip</item>
         <item name="android:layout_width">fill_parent</item>
@@ -1018,9 +1018,9 @@
         <item name="android:minHeight">@dimen/row_height_small</item>
     </style>
     <style name="IgSwitchStyle">
-        <item name="checkedDrawable">@drawable/toggle_active</item>
-        <item name="thumbDrawable">@drawable/toggle_nub</item>
-        <item name="uncheckedDrawable">@drawable/toggle</item>
+        <!--<item name="checkedDrawable">@drawable/toggle_active</item>-->
+        <!--<item name="thumbDrawable">@drawable/toggle_nub</item>-->
+        <!--<item name="uncheckedDrawable">@drawable/toggle</item>-->
     </style>
     <style name="IgTextboxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:textColor">?textColorPrimary</item>
@@ -1034,11 +1034,11 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
     </style>
     <style name="IgUpdatableButtonStyle" parent="@style/IgButton">
-        <item name="android:textColor">@drawable/button_textcolor_selector</item>
-        <item name="android:background">@drawable/button_state_drawable</item>
+        <!--<item name="android:textColor">@drawable/button_textcolor_selector</item>-->
+        <!--<item name="android:background">@drawable/button_state_drawable</item>-->
     </style>
     <style name="IgUpdatableButtonStyle.Inverse" parent="@style/IgButton">
-        <item name="android:textColor">@drawable/button_inverse_textcolor_selector</item>
+        <!--<item name="android:textColor">@drawable/button_inverse_textcolor_selector</item>-->
         <item name="android:background">@null</item>
     </style>
     <style name="IgUpdatableButtonStyle.Small" parent="@style/IgUpdatableButtonStyle">
@@ -1048,14 +1048,14 @@
     </style>
     <style name="IgUploadProgressBar">
         <item name="android:maxHeight">2.0dip</item>
-        <item name="android:progressDrawable">@drawable/progress_horizontal_upload</item>
+        <!--<item name="android:progressDrawable">@drawable/progress_horizontal_upload</item>-->
         <item name="android:minHeight">2.0dip</item>
     </style>
     <style name="IgWhiteRadioButton">
         <item name="android:textSize">@dimen/font_medium</item>
         <item name="android:textColor">@color/white_50_transparent</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:background">@drawable/bg_simple_row_white50</item>
+        <!--<item name="android:background">@drawable/bg_simple_row_white50</item>-->
         <item name="android:paddingLeft">15.0dip</item>
         <item name="android:paddingRight">5.0dip</item>
         <item name="android:layout_width">fill_parent</item>
@@ -1073,7 +1073,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:textColor">@color/grey_9</item>
         <item name="android:windowAnimationStyle">@style/animationIIGDialog</item>
-        <item name="android:background">@drawable/iig_dialog_bg</item>
+        <!--<item name="android:background">@drawable/iig_dialog_bg</item>-->
         <item name="android:listChoiceIndicatorSingle">@null</item>
         <item name="android:listChoiceIndicatorMultiple">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
@@ -1101,9 +1101,9 @@
         <item name="android:background">@null</item>
         <item name="android:paddingTop">@dimen/row_text_padding</item>
         <item name="android:paddingBottom">@dimen/row_text_padding</item>
-        <item name="android:hint">@string/direct_thread_edittext_hint</item>
+        <!--<item name="android:hint">@string/direct_thread_edittext_hint</item>-->
         <item name="android:maxLines">5</item>
-        <item name="android:maxLength">@integer/max_message_length</item>
+        <!--<item name="android:maxLength">@integer/max_message_length</item>-->
         <item name="android:inputType">textAutoCorrect|textCapSentences|textMultiLine</item>
         <item name="android:imeOptions">actionSend</item>
     </style>
@@ -1143,7 +1143,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/button_blue_background</item>
+        <!--<item name="android:background">@drawable/button_blue_background</item>-->
         <item name="android:padding">@dimen/row_text_padding</item>
         <item name="android:minHeight">@dimen/row_height_small</item>
     </style>
@@ -1173,7 +1173,7 @@
         <item name="android:textColor">@color/browser_more_menu_text_color</item>
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center|left</item>
-        <item name="android:background">@drawable/clickable_item_bg</item>
+        <!--<item name="android:background">@drawable/clickable_item_bg</item>-->
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_marginLeft">@dimen/browser_custom_menu_horizontal_padding</item>
@@ -1203,7 +1203,7 @@
         <item name="android:paddingBottom">@dimen/row_header_top_padding</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:text">@string/german_specific_terms_of_service</item>
+        <!--<item name="android:text">@string/german_specific_terms_of_service</item>-->
     </style>
     <style name="NetEgoCTA">
         <item name="android:textSize">@dimen/font_medium</item>
@@ -1234,16 +1234,16 @@
         <item name="android:includeFontPadding">false</item>
     </style>
     <style name="NotificationBadge.Medium" parent="@style/NotificationBadge">
-        <item name="android:background">@drawable/notification_badge</item>
+        <!--<item name="android:background">@drawable/notification_badge</item>-->
     </style>
     <style name="NotificationBadge.ProfileNavBar" parent="@style/NotificationBadge">
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:background">@drawable/red_pill_profile_navbar</item>
+        <!--<item name="android:background">@drawable/red_pill_profile_navbar</item>-->
         <item name="android:paddingLeft">4.0dip</item>
         <item name="android:paddingRight">4.0dip</item>
     </style>
     <style name="NotificationBadge.Small" parent="@style/NotificationBadge">
-        <item name="android:background">@drawable/red_pill_small</item>
+        <!--<item name="android:background">@drawable/red_pill_small</item>-->
     </style>
     <style name="OverlayMessageTextStyle">
         <item name="android:textSize">@dimen/font_large</item>
@@ -1265,7 +1265,7 @@
         <item name="android:textColor">@color/grey_8</item>
     </style>
     <style name="PillButton">
-        <item name="android:background">@drawable/pill_background</item>
+        <!--<item name="android:background">@drawable/pill_background</item>-->
         <item name="android:paddingLeft">8.0dip</item>
         <item name="android:paddingRight">12.0dip</item>
         <item name="android:layout_width">wrap_content</item>
@@ -1279,7 +1279,7 @@
     </style>
     <style name="PillTextView">
         <item name="android:textSize">@dimen/font_medium</item>
-        <item name="android:textColor">@drawable/pill_text_color</item>
+        <!--<item name="android:textColor">@drawable/pill_text_color</item>-->
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:paddingLeft">4.0dip</item>
@@ -1289,8 +1289,8 @@
         <item name="android:includeFontPadding">false</item>
     </style>
     <style name="PopupAnimationStyle">
-        <item name="android:windowEnterAnimation">@anim/bottom_in</item>
-        <item name="android:windowExitAnimation">@anim/bottom_out</item>
+        <!--<item name="android:windowEnterAnimation">@anim/bottom_in</item>-->
+        <!--<item name="android:windowExitAnimation">@anim/bottom_out</item>-->
     </style>
     <style name="PopupLargeAvatarStyle">
         <item name="android:layout_width">110.0dip</item>
@@ -1392,13 +1392,13 @@
         <item name="android:layout_marginBottom">@dimen/reg_page_side_margin</item>
     </style>
     <style name="RegEditTextContainerStyle">
-        <item name="android:background">@drawable/reg_textbox_background</item>
+        <!--<item name="android:background">@drawable/reg_textbox_background</item>-->
     </style>
     <style name="RegEditTextStyle">
         <item name="android:textSize">@dimen/font_medium</item>
         <item name="android:textColor">@color/reg_textbox_text_color</item>
         <item name="android:textColorHint">@color/reg_textbox_hint_color</item>
-        <item name="android:background">@drawable/reg_textbox_background</item>
+        <!--<item name="android:background">@drawable/back</item>-->
         <item name="android:paddingLeft">@dimen/row_padding</item>
         <item name="android:paddingRight">@dimen/row_padding</item>
         <item name="android:layout_width">fill_parent</item>
@@ -1417,7 +1417,6 @@
         <item name="android:textSize">@dimen/font_medium</item>
         <item name="android:textColor">@color/grey_9</item>
         <item name="android:textColorHint">@color/grey_5</item>
-        <item name="android:background">@drawable/reg_edit_text_background_deprecated</item>
         <item name="android:paddingLeft">0.0dip</item>
         <item name="android:paddingRight">0.0dip</item>
         <item name="android:layout_width">fill_parent</item>
@@ -1437,7 +1436,7 @@
     <style name="RegInlineErrorMessageViewStyle">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="errorBackground">@drawable/reg_textbox_background_error_state</item>
+        <!--<item name="errorBackground">@drawable/reg_textbox_background_error_state</item>-->
         <item name="errorColor">@color/red_5</item>
         <item name="hintColor">@color/grey_5</item>
     </style>
@@ -1448,7 +1447,7 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">@dimen/reg_button_height</item>
         <item name="android:layout_marginTop">@dimen/reg_margin_small</item>
-        <item name="android:text">@string/next</item>
+        <!--<item name="android:text">@string/next</item>-->
         <item name="progressBarTint">@color/blue_5</item>
     </style>
     <style name="RowHeaderMediumText">
@@ -1463,7 +1462,7 @@
         <item name="android:textSize">@dimen/font_large</item>
         <item name="android:textColor">?textColorPrimary</item>
         <item name="android:layout_gravity">center|left</item>
-        <item name="android:background">@drawable/input_white</item>
+        <!--<item name="android:background">@drawable/input_white</item>-->
         <item name="android:paddingLeft">@dimen/search_text_padding_horizontal</item>
         <item name="android:paddingRight">@dimen/search_text_padding_horizontal</item>
         <item name="android:layout_width">fill_parent</item>
@@ -1471,14 +1470,14 @@
         <item name="android:singleLine">true</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:freezesText">true</item>
-        <item name="android:drawableLeft">@drawable/nav_search</item>
-        <item name="android:drawableRight">@drawable/search_clear</item>
+        <!--<item name="android:drawableLeft">@drawable/nav_search</item>-->
+        <!--<item name="android:drawableRight">@drawable/search_clear</item>-->
         <item name="android:drawablePadding">8.0dip</item>
         <item name="android:inputType">textAutoComplete</item>
         <item name="android:imeOptions">actionSearch</item>
         <item name="android:textCursorDrawable">@null</item>
-        <item name="android:drawableStart">@drawable/nav_search</item>
-        <item name="android:drawableEnd">@drawable/search_clear</item>
+        <!--<item name="android:drawableStart">@drawable/nav_search</item>-->
+        <!--<item name="android:drawableEnd">@drawable/search_clear</item>-->
     </style>
     <style name="SearchEditText.ActionBar" parent="@style/SearchEditText">
         <item name="android:textColorHint">@color/grey_5</item>
@@ -1577,7 +1576,7 @@
     </style>
     <style name="TextViewStyle.QuestionFooter" parent="@android:style/Widget.TextView">
         <item name="android:enabled">false</item>
-        <item name="android:textColor">@color/list_view_footer_text_selected_blue</item>
+        <!--<item name="android:textColor">@color/list_view_footer_text_selected_blue</item>-->
     </style>
     <style name="TextViewStyle.Survey" parent="@android:style/Widget.TextView">
         <item name="android:textColor">?textColorSecondary</item>
@@ -1671,22 +1670,22 @@
         <item name="buttonUpdatableInverse">@style/ButtonUpdatableInverse</item>
         <item name="captureDeleteGlyphColor">@color/grey_9</item>
         <item name="captureDeleteGlyphPressedColor">@color/red_5</item>
-        <item name="captureDeleteTextColor">@color/delete_clip_button_color_whiteout</item>
+        <!--<item name="captureDeleteTextColor">@color/delete_clip_button_color_whiteout</item>-->
         <item name="captureStyle">@style/Widget.InAppCaptureView</item>
         <item name="clearActionBarForegroundPressedColor">@color/action_bar_transparent_background_pressed_state</item>
         <item name="contactRowHeight">@dimen/row_height_small_redesign</item>
         <item name="contextualFeedTitleStyle">@style/ActionBarTitle.ContextualFeed.Whiteout</item>
-        <item name="creationAdjustDrawable">@drawable/tool_adjust_straighten_whiteout</item>
+        <!--<item name="creationAdjustDrawable">@drawable/tool_adjust_straighten_whiteout</item>-->
         <item name="creationAvatar">@style/Avatar.Creation.Redesign</item>
-        <item name="creationBrightnessDrawable">@drawable/tool_brightness_whiteout</item>
-        <item name="creationContrastDrawable">@drawable/tool_contrast_whiteout</item>
+        <!--<item name="creationBrightnessDrawable">@drawable/tool_brightness_whiteout</item>-->
+        <!--<item name="creationContrastDrawable">@drawable/tool_contrast_whiteout</item>-->
         <item name="creationDividerColor">@color/transparent</item>
-        <item name="creationDraggableBorderDrawable">@drawable/draggable_rounded_border_whiteout</item>
-        <item name="creationFadeDrawable">@drawable/tool_fade_whiteout</item>
+        <!--<item name="creationDraggableBorderDrawable">@drawable/draggable_rounded_border_whiteout</item>-->
+        <!--<item name="creationFadeDrawable">@drawable/tool_fade_whiteout</item>-->
         <item name="creationFilterText">@style/BodyEmphasized</item>
         <item name="creationFootnote">@style/FootNoteDetail</item>
         <item name="creationGlyphColor">@color/grey_9</item>
-        <item name="creationHighlightsDrawable">@drawable/tool_highlights_whiteout</item>
+        <!--<item name="creationHighlightsDrawable">@drawable/tool_highlights_whiteout</item>-->
         <item name="creationLegacyPadding">0.0dip</item>
         <item name="creationMetadataThumbnail">@dimen/row_height</item>
         <item name="creationMetadataUserAvatar">@style/Avatar.Medium</item>
@@ -1699,27 +1698,27 @@
         <item name="creationRowHeightLarge">@dimen/row_height_large_redesign</item>
         <item name="creationRowHeightSmall">@dimen/row_height</item>
         <item name="creationRowPadding">@style/paddedRowRedesign</item>
-        <item name="creationSaturationDrawable">@drawable/tool_saturation_whiteout</item>
+        <!--<item name="creationSaturationDrawable">@drawable/tool_saturation_whiteout</item>-->
         <item name="creationSecondaryBackground">@color/grey_0</item>
         <item name="creationSectionText">@style/Section</item>
-        <item name="creationShadowsDrawable">@drawable/tool_shadows_whiteout</item>
-        <item name="creationSharpenDrawable">@drawable/tool_sharpen_whiteout</item>
-        <item name="creationSpinnerBackground">@drawable/menu_popup_panel</item>
-        <item name="creationSpinnerTextBackground">@drawable/spinner_menu_background_whiteout</item>
-        <item name="creationSpinnerTextColor">@color/spinner_menu_text_whiteout</item>
-        <item name="creationStructureDrawable">@drawable/tool_structure_whiteout</item>
+        <!--<item name="creationShadowsDrawable">@drawable/tool_shadows_whiteout</item>-->
+        <!--<item name="creationSharpenDrawable">@drawable/tool_sharpen_whiteout</item>-->
+        <!--<item name="creationSpinnerBackground">@drawable/menu_popup_panel</item>-->
+        <!--<item name="creationSpinnerTextBackground">@drawable/spinner_menu_background_whiteout</item>-->
+        <!--<item name="creationSpinnerTextColor">@color/spinner_menu_text_whiteout</item>-->
+        <!--<item name="creationStructureDrawable">@drawable/tool_structure_whiteout</item>-->
         <item name="creationSubTitleText">@style/BodyDetail</item>
         <item name="creationTagIcon">@style/creationTagIconRedesign</item>
         <item name="creationTertiaryBackground">@color/grey_1</item>
         <item name="creationTextColor">@color/grey_5</item>
-        <item name="creationTiltShiftDrawable">@drawable/tool_tilt_whiteout</item>
-        <item name="creationTintDrawable">@drawable/tool_tint_whiteout</item>
+        <!--<item name="creationTiltShiftDrawable">@drawable/tool_tilt_whiteout</item>-->
+        <!--<item name="creationTintDrawable">@drawable/tool_tint_whiteout</item>-->
         <item name="creationTitleText">@style/Label</item>
-        <item name="creationVignetteDrawable">@drawable/tool_vignette_whiteout</item>
-        <item name="creationWarmthDrawable">@drawable/tool_warmth_whiteout</item>
+        <!--<item name="creationVignetteDrawable">@drawable/tool_vignette_whiteout</item>-->
+        <!--<item name="creationWarmthDrawable">@drawable/tool_warmth_whiteout</item>-->
         <item name="cropHighlightBackground">@color/grey_5</item>
         <item name="customToastViewStyle">@style/CustomToast.Red</item>
-        <item name="defaultActionBarBackIcon">@drawable/nav_arrow_back</item>
+        <!--<item name="defaultActionBarBackIcon">@drawable/nav_arrow_back</item>-->
         <item name="defaultActionBarBackground">@color/grey_0</item>
         <item name="defaultActionBarForegroundPressedColor">@color/grey_1</item>
         <item name="defaultDividerStyle">@style/Widget.Instagram.Divider.Hidden</item>
@@ -1733,7 +1732,7 @@
         <item name="directRowTimeStamp">@style/BodyDetail</item>
         <item name="directRowUserInfo">@style/BodyDetail</item>
         <item name="directRowUserName">@style/BodyEmphasized</item>
-        <item name="directUploadButtonBackground">@drawable/action_bar_modal_button_background_whiteout</item>
+        <!--<item name="directUploadButtonBackground">@drawable/action_bar_modal_button_background_whiteout</item>-->
         <item name="directUploadButtonForeground">@color/green_5</item>
         <item name="directUploadButtonForegroundPressed">@color/green_5</item>
         <item name="directViewModesNuxAllowed">true</item>
@@ -1741,7 +1740,7 @@
         <item name="feedSaveActiveColor">@color/grey_9</item>
         <item name="filterListTheme">@style/Widget.FilterList.Redesign</item>
         <item name="fixedTabBarStyle">@style/FixedTabBar.Whiteout</item>
-        <item name="fixedTabBarTextColor">@color/view_switcher_text_whiteout</item>
+        <!--<item name="fixedTabBarTextColor">@color/view_switcher_text_whiteout</item>-->
         <item name="footnote">@style/FootNote</item>
         <item name="footnoteDetail">@style/FootNoteDetail</item>
         <item name="footnoteEmphasized">@style/FootNoteEmphasized</item>
@@ -1766,14 +1765,14 @@
         <item name="messageRequestAction">@style/BodyDetail</item>
         <item name="messageRequestPadding">@dimen/row_text_padding</item>
         <item name="modalActionBarBackground">@color/grey_0</item>
-        <item name="modalActionBarButtonBackground">@drawable/action_bar_modal_button_background_whiteout</item>
+        <!--<item name="modalActionBarButtonBackground">@drawable/action_bar_modal_button_background_whiteout</item>-->
         <item name="modalActionBarForegroundPressedColor">@color/grey_1</item>
-        <item name="modalActionBarPrimaryButtonBackground">@drawable/action_bar_modal_button_background_whiteout</item>
+        <!--<item name="modalActionBarPrimaryButtonBackground">@drawable/action_bar_modal_button_background_whiteout</item>-->
         <item name="modalActionBarPrimaryButtonForeground">@color/blue_5</item>
         <item name="modalActionBarPrimaryButtonForegroundPressed">@color/blue_5</item>
         <item name="noResultsPadding">0.0dip</item>
-        <item name="nuxActionButtonBackground">@drawable/reg_blue_button_background</item>
-        <item name="nuxActionButtonTextColor">@color/reg_next_button_text_color</item>
+        <!--<item name="nuxActionButtonBackground">@drawable/reg_blue_button_background</item>-->
+        <!--<item name="nuxActionButtonTextColor">@color/reg_next_button_text_color</item>-->
         <item name="nuxAllowSignUpFlow">true</item>
         <item name="nuxDividerColor">@color/grey_2</item>
         <item name="nuxLogoDrawable">@drawable/nux_dayone_landing_logo</item>
@@ -1781,7 +1780,7 @@
         <item name="nuxTextColor">@color/grey_5</item>
         <item name="peopleTagSearchTheme">@style/Widget.PeopleTag</item>
         <item name="pillLabelStyle">@style/Widget.PillDegreeLabelManager</item>
-        <item name="primaryButtonBackground">@drawable/primary_button_selector</item>
+        <!--<item name="primaryButtonBackground">@drawable/primary_button_selector</item>-->
         <item name="primaryButtonStyle">@style/IgPrimaryButton</item>
         <item name="profileAvatarLarge">@style/Avatar.Medium.Redesign</item>
         <item name="profileAvatarSize">@style/Avatar.Medium.Redesign</item>
@@ -1796,7 +1795,7 @@
         <item name="profileSwitchAccountNotificationText">@style/FootNoteDetail</item>
         <item name="profileSwitchAccountPadding">@dimen/row_padding</item>
         <item name="profileSwitchAccountUserInfo">@style/BodyEmphasized</item>
-        <item name="profileSwitchAccountUserInfoTextColor">@color/spinner_menu_text_redesign</item>
+        <!--<item name="profileSwitchAccountUserInfoTextColor">@color/spinner_menu_text_redesign</item>-->
         <item name="profileUserInfo">@style/BodyDetail</item>
         <item name="profileUserName">@style/BodyEmphasized</item>
         <item name="rowAvatarWidth">@dimen/avatar_size_redesign</item>
@@ -1836,15 +1835,15 @@
         <item name="shouldHideAllComments">false</item>
         <item name="shouldMinimizeAllComments">false</item>
         <item name="shouldTruncateCaptionToSingleLine">false</item>
-        <item name="tabActivityDrawable">@drawable/dock_news_whiteout</item>
+        <!--<item name="tabActivityDrawable">@drawable/dock_news_whiteout</item>-->
         <item name="tabBarHeight">@dimen/tab_bar_height_whiteout</item>
         <item name="tabButtonBackground">@color/grey_0</item>
         <item name="tabButtonIconStyle">@style/TabBarButton</item>
-        <item name="tabButtonProfileDrawable">@drawable/tab_avatar_border_selector_whiteout</item>
-        <item name="tabCameraDrawable">@drawable/dock_share_whiteout</item>
-        <item name="tabHomeDrawable">@drawable/dock_home_whiteout</item>
-        <item name="tabProfileDrawable">@drawable/dock_profile_whiteout</item>
-        <item name="tabSearchDrawable">@drawable/dock_search_whiteout</item>
+        <!--<item name="tabButtonProfileDrawable">@drawable/tab_avatar_border_selector_whiteout</item>-->
+        <!--<item name="tabCameraDrawable">@drawable/dock_share_whiteout</item>-->
+        <!--<item name="tabHomeDrawable">@drawable/dock_home_whiteout</item>-->
+        <!--<item name="tabProfileDrawable">@drawable/dock_profile_whiteout</item>-->
+        <!--<item name="tabSearchDrawable">@drawable/dock_search_whiteout</item>-->
         <item name="textColorLocation">@color/grey_9</item>
         <item name="textSizeLocation">@dimen/font_small</item>
         <item name="tintPickerStyle">@style/Widget.TintPicker</item>
@@ -1852,8 +1851,8 @@
         <item name="titleInactive">@style/TitleInactive</item>
         <item name="titleLogoDrawable">@drawable/nav_logo_whiteout</item>
         <item name="titleText">@style/Title</item>
-        <item name="tombstoneBackground">@drawable/tombstone_background</item>
-        <item name="tombstoneReasonClickableBackground">@drawable/tombstone_reason_clickable_background</item>
+        <!--<item name="tombstoneBackground">@drawable/tombstone_background</item>-->
+        <!--<item name="tombstoneReasonClickableBackground">@drawable/tombstone_reason_clickable_background</item>-->
         <item name="toolTipColor">@color/grey_8</item>
         <item name="triangleSpinnerStyle">@style/Widget.TriangleSpinner.Whiteout</item>
         <item name="updatableButtonGlyphStyle">@style/IgUpdatableButtonStyle.Small</item>
@@ -1934,8 +1933,8 @@
         <item name="textColorPrimary">@color/grey_5</item>
         <item name="textColorRegularLink">@color/grey_3</item>
         <item name="textColorSecondary">@color/grey_5</item>
-        <item name="tombstoneBackground">@drawable/tombstone_background_video_feed</item>
-        <item name="tombstoneReasonClickableBackground">@drawable/tombstone_reason_clickable_background_video_feed</item>
+        <!--<item name="tombstoneBackground">@drawable/tombstone_background_video_feed</item>-->
+        <!--<item name="tombstoneReasonClickableBackground">@drawable/tombstone_reason_clickable_background_video_feed</item>-->
     </style>
     <style name="ViewerLoadingGradientStyle">
         <item name="gradientColor1">@color/white</item>
@@ -1954,8 +1953,8 @@
     <style name="Widget.FilterList" parent="">
         <item name="filterListBackground">@color/white</item>
         <item name="filterListCheckColor">?textColorPrimary</item>
-        <item name="filterListDividers">@drawable/filter_list_divider</item>
-        <item name="filterListItemText">@drawable/filter_list_text</item>
+        <!--<item name="filterListDividers">@drawable/filter_list_divider</item>-->
+        <!--<item name="filterListItemText">@drawable/filter_list_text</item>-->
     </style>
     <style name="Widget.FilterList.Redesign" parent="@style/Widget.FilterList">
         <item name="filterListDividers">@null</item>
@@ -1963,7 +1962,7 @@
     <style name="Widget.IgSeekBar" parent="">
         <item name="seekBarActiveColor">@color/grey_9</item>
         <item name="seekBarInactiveColor">@color/grey_3</item>
-        <item name="seekBarKnob">@drawable/seek_bar_knob</item>
+        <!--<item name="seekBarKnob">@drawable/seek_bar_knob</item>-->
         <item name="seekBarKnobSize">@dimen/seek_bar_knob_size_whiteout</item>
         <item name="seekBarRoot">@null</item>
         <item name="seekBarTextAlpha">255</item>
@@ -1977,8 +1976,8 @@
         <item name="captureCamcorderOuterRing">@color/grey_2</item>
         <item name="captureCamcorderOuterRingDisable">@color/grey_1</item>
         <item name="captureCamcorderOuterRingPressed">@color/grey_3</item>
-        <item name="captureCamcorderProgressActiveDrawable">@drawable/camcorder_progress_red_whiteout</item>
-        <item name="captureCamcorderProgressDrawable">@drawable/camcorder_progress_black</item>
+        <!--<item name="captureCamcorderProgressActiveDrawable">@drawable/camcorder_progress_red_whiteout</item>-->
+        <!--<item name="captureCamcorderProgressDrawable">@drawable/camcorder_progress_black</item>-->
         <item name="captureCameraInnerRing">@color/grey_0</item>
         <item name="captureCameraInnerRingPressed">@color/grey_0</item>
         <item name="captureCameraOuterRing">@color/grey_2</item>
@@ -2014,7 +2013,7 @@
     <style name="Widget.PeopleTag" parent="">
         <item name="peopleTagSearchBackground">@color/white_90_transparent</item>
         <item name="peopleTagSearchCacheColorHint">@color/white</item>
-        <item name="peopleTagSearchItemBackground">@drawable/people_tagging_search_background</item>
+        <!--<item name="peopleTagSearchItemBackground">@drawable/people_tagging_search_background</item>-->
     </style>
     <style name="Widget.PillDegreeLabelManager" parent="">
         <item name="pillSelectedColor">@color/grey_9</item>
@@ -2024,7 +2023,7 @@
     <style name="Widget.ProgressBar.FBUi" parent="@style/Widget.ProgressBar">
         <item name="android:maxWidth">24.0dip</item>
         <item name="android:maxHeight">24.0dip</item>
-        <item name="android:indeterminateDrawable">@drawable/browser_progress_comet</item>
+        <!--<item name="android:indeterminateDrawable">@drawable/browser_progress_comet</item>-->
         <item name="android:indeterminateDuration">800</item>
         <item name="android:indeterminateBehavior">repeat</item>
         <item name="android:minWidth">24.0dip</item>
@@ -2045,7 +2044,7 @@
         <item name="android:textSize">@dimen/font_small</item>
     </style>
     <style name="Widget.TintPicker" parent="">
-        <item name="tintPickerKnob">@drawable/tint_knob_whiteout</item>
+        <!--<item name="tintPickerKnob">@drawable/tint_knob_whiteout</item>-->
         <item name="tintPickerLineColor">@color/white</item>
         <item name="tintPickerNoneColor">@color/grey_9</item>
         <item name="tintPickerSelectedSize">@dimen/seek_bar_knob_size_whiteout</item>
@@ -2078,20 +2077,20 @@
         <item name="medium">true</item>
     </style>
     <style name="animationDialog">
-        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
-        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
+        <!--<item name="android:windowEnterAnimation">@anim/dialog_enter</item>-->
+        <!--<item name="android:windowExitAnimation">@anim/dialog_exit</item>-->
     </style>
     <style name="animationDialogFade">
-        <item name="android:windowEnterAnimation">@anim/dialog_enter_fade</item>
-        <item name="android:windowExitAnimation">@anim/dialog_exit_fade</item>
+        <!--<item name="android:windowEnterAnimation">@anim/dialog_enter_fade</item>-->
+        <!--<item name="android:windowExitAnimation">@anim/dialog_exit_fade</item>-->
     </style>
     <style name="animationDialogSimple">
         <item name="android:windowEnterAnimation">@null</item>
         <item name="android:windowExitAnimation">@null</item>
     </style>
     <style name="animationIIGDialog">
-        <item name="android:windowEnterAnimation">@anim/iig_dialog_enter</item>
-        <item name="android:windowExitAnimation">@anim/iig_dialog_exit</item>
+        <!--<item name="android:windowEnterAnimation">@anim/iig_dialog_enter</item>-->
+        <!--<item name="android:windowExitAnimation">@anim/iig_dialog_exit</item>-->
     </style>
     <style name="answer_button">
         <item name="android:textSize">@dimen/answer_button_text_size</item>
@@ -2123,7 +2122,7 @@
     </style>
     <style name="directActionButton">
         <item name="android:textColor">@color/grey_9</item>
-        <item name="android:background">@drawable/bg_simple_row</item>
+        <!--<item name="android:background">@drawable/bg_simple_row</item>-->
         <item name="capitalize">false</item>
         <item name="medium">true</item>
     </style>
@@ -2183,18 +2182,18 @@
         <item name="android:layout_weight">1.0</item>
     </style>
     <style name="rowBadge">
-        <item name="android:background">@drawable/badge_background</item>
+        <!--<item name="android:background">@drawable/badge_background</item>-->
         <item name="android:layout_width">8.0dip</item>
         <item name="android:layout_height">8.0dip</item>
     </style>
     <style name="rowBadgeLegacy">
         <item name="android:textColor">@color/white</item>
-        <item name="android:background">@drawable/badge_background_legacy</item>
+        <!--<item name="android:background">@drawable/badge_background_legacy</item>-->
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
     <style name="rowBadgeSmall">
-        <item name="android:background">@drawable/badge_background_small</item>
+        <!--<item name="android:background">@drawable/badge_background_small</item>-->
         <item name="android:layout_width">6.0dip</item>
         <item name="android:layout_height">6.0dip</item>
     </style>
