@@ -7,7 +7,7 @@
         android:title="@string/home"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_post"
+        android:id="@+id/action_compose"
         android:enabled="true"
         android:icon="@drawable/instagram_new_post_outline_24"
         android:title="@string/new_post"

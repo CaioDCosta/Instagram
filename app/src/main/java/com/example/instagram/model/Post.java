@@ -8,10 +8,13 @@ import com.parse.ParseUser;
 
 @ParseClassName("Post")
 public class Post extends ParseObject {
-
 	private static final String KEY_DESCRIPTION = "description";
 	private static final String KEY_IMAGE = "image";
 	private static final String KEY_USER = "user";
+	private static final String KEY_CREATED = "createdAt";
+
+	// Required empty constructor
+	public Post() {}
 
 	// Getters
 	public String getDescription() {
@@ -40,13 +43,28 @@ public class Post extends ParseObject {
 			super(Post.class);
 		}
 
-		public Query getTop() {
-			setLimit(20);
+		public Query byUser(ParseUser user) {
+			whereEqualTo(KEY_USER, user);
+			return this;
+		}
+
+		public Query byNewestFirst() {
+			orderByDescending(KEY_CREATED);
+			return this;
+		}
+
+		public Query limit(int num) {
+			setLimit(num);
 			return this;
 		}
 
 		public Query withUser() {
 			include("user");
+			return this;
+		}
+
+		public Query skip(int num) {
+			setSkip(num);
 			return this;
 		}
 	}

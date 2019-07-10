@@ -2,6 +2,7 @@ package com.example.instagram;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,25 +24,34 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
 	private List<Post> posts;
 	private Context context;
-	public static final int VIEW_TYPE_LOADING = 0;
-	public static final int VIEW_TYPE_ACTIVITY = 1;
+	private OnCardClick listener;
 
-	public PostAdapter(List<Post> posts, Context context) {
+	interface OnCardClick {
+		public void onCardClick(Post post);
+	}
+
+	public PostAdapter(List<Post> posts, Context context, OnCardClick listener) {
 		this.posts = posts;
 		this.context = context;
+		this.listener = listener;
 	}
 
 	@NonNull
 	@Override
 	public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-		Context context = viewGroup.getContext();
-		LayoutInflater inflater = LayoutInflater.from(context);
+		LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
 
 		// Inflate the custom layout
 		View view = inflater.inflate(R.layout.item_post, viewGroup, false);
 
 		// Return a new holder instance
-		ViewHolder viewHolder = new ViewHolder(view);
+		final ViewHolder viewHolder = new ViewHolder(view);
+		viewHolder.cvBack.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				listener.onCardClick(viewHolder.post);
+			}
+		});
 		return viewHolder;
 	}
 
@@ -50,13 +60,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 		// Get the data model based on position
 		Post post = posts.get(i);
 
+		viewHolder.post = post;
+
 		// Set item views based on your views and data model
 		viewHolder.tvUsername.setText(post.getUser().getUsername());
 
 		Log.d("MainActivity", post.getImage().getUrl());
 
-		//TODO Why is this image not working??
-		Glide.with(context).load("http://caiodcosta-fbu-instagram.herokuapp.com/parse/files/fbu-instagram/ed9a18727e73af7895ba62477d367baa_cdcReceipt.jpg")
+		//TODO Make this less hacky?
+		Glide.with(context).load(post.getImage().getUrl().replace("http", "https"))
 				.placeholder(R.drawable.nav_logo_whiteout)
 				.error(R.drawable.nav_logo_whiteout)
 				.into(viewHolder.ivPicture);
@@ -69,22 +81,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
 	@Override
 	public int getItemCount() {
-		return posts.size() + 1;
+		return posts.size();
 	}
-
-	@Override
-	public int getItemViewType(int position) {
-		return position >= posts.size() ? VIEW_TYPE_LOADING : VIEW_TYPE_ACTIVITY;
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return getItemViewType(position) == VIEW_TYPE_LOADING ? -1 : position;
-	}
-	
 
 	class ViewHolder extends RecyclerView.ViewHolder {
 
+		@BindView(R.id.cvBack)          CardView cvBack;
 		@BindView(R.id.ibComment)       ImageButton ibComment;
 		@BindView(R.id.ibDirect)        ImageButton ibDirect;
 		@BindView(R.id.ibLike)          ImageButton ibLike;
@@ -93,10 +95,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 		@BindView(R.id.ivProfile)       ImageView ivProfile;
 		@BindView(R.id.tvUsername)      TextView tvUsername;
 		@BindView(R.id.tvDescription)   TextView tvDescription;
+		public Post post;
 
 		public ViewHolder(View view) {
 			super(view);
 			ButterKnife.bind(this, view);
 		}
+
+
 	}
 }

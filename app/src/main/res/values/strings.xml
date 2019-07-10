@@ -7,4 +7,7 @@
     <string name="new_post">New Post</string>
     <string name="profile">Profile</string>
     <string name="description">Description</string>
+    <string name="enter_a_description_of_the_phot">Enter a description of the photo</string>
+    <string name="select_image">Select Image</string>
+    <string name="post_image">Post Image!</string>
 </resources>

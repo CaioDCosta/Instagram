@@ -24,13 +24,22 @@ import butterknife.ButterKnife;
  */
 public class LoginFragment extends Fragment {
 
-	private String username;
-	private String password;
+	private Listener listener;
 
-	private static final String KEY_USERNAME = "username";
-	private static final String KEY_PASSWORD = "password";
+	View.OnClickListener onClickLogin = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Log.d("MainActivity", "Click");
+			listener.onLogin(etUsername.getText().toString(), etPassword.getText().toString());
+		}
+	};
 
-	private OnButtonClickListener listener;
+	View.OnClickListener onClickSignup = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			listener.onSignUpTransition(etUsername.getText().toString(), etPassword.getText().toString());
+		}
+	};
 
 	@BindView(R.id.btnLogin) Button btnLogin;
 	@BindView(R.id.etUsername) TextInputEditText etUsername;
@@ -45,58 +54,47 @@ public class LoginFragment extends Fragment {
 		return new LoginFragment();
 	}
 
-	interface OnButtonClickListener {
+	interface Listener {
 		public void onLogin(String username, String password);
-		public void onSignUp(String username, String password);
+		public void onSignUpTransition(String username, String password);
+		public void onLoginDisplayed();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-
-		View view = inflater.inflate(R.layout.fragment_login, container, false);
-		if (savedInstanceState != null) {
-			username = savedInstanceState.getString(KEY_USERNAME);
-			password = savedInstanceState.getString(KEY_PASSWORD);
-		}
-		return view;
+		return inflater.inflate(R.layout.fragment_login, container, false);
 	}
 
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		ButterKnife.bind(this, view);
-		btnLogin.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Log.d("MainActivity", "Click");
-				listener.onLogin(etUsername.getText().toString(), etPassword.getText().toString());
-			}
-		});
+	}
 
-		btnSignup.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				listener.onSignUp(etUsername.getText().toString(), etPassword.getText().toString());
-			}
-		});
+	@Override
+	public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+		super.onViewStateRestored(savedInstanceState);
+		listener.onLoginDisplayed();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		etPassword.setText("");
+		etUsername.setText("");
+		btnLogin.setOnClickListener(onClickLogin);
+		btnSignup.setOnClickListener(onClickSignup);
 	}
 
 	@Override
 	public void onAttach(Context context) {
 		super.onAttach(context);
-		if (context instanceof OnButtonClickListener) {
-			listener = (OnButtonClickListener) context;
+		if (context instanceof Listener) {
+			listener = (Listener) context;
 		} else {
 			throw new ClassCastException(context.toString()
 					+ " must implement LoginFragment.OnButtonClickListener");
 		}
-	}
-
-	@Override
-	public void onSaveInstanceState(@NonNull Bundle outState) {
-		outState.putString(KEY_USERNAME, username);
-		outState.putString(KEY_PASSWORD, password);
-		super.onSaveInstanceState(outState);
 	}
 }
