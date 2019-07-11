@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.instagram.model.Post;
 import com.parse.LogOutCallback;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.L
 
 	// Main Activity bottom navigation
 	@BindView(R.id.bottom_navigation)   BottomNavigationView bottom_navigation;
+	@BindView(R.id.pbLoading) public ProgressBar pbLoading;
 
 	// ProfileFragment Listener
 	@Override
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.L
 	// ComposeFragment Listener
 	@Override
 	public void onPost(Post post) {
+		pbLoading.setVisibility(View.VISIBLE);
 		displayFragment(homeFragment);
 	}
 
@@ -68,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.L
 			homeFragment = (HomeFragment) fm.findFragmentByTag(FRAGMENT_KEY_HOME);
 			composeFragment = (ComposeFragment) fm.findFragmentByTag(FRAGMENT_KEY_COMPOSE);
 			profileFragment = (ProfileFragment) fm.findFragmentByTag(FRAGMENT_KEY_PROFILE);
-
 			activeFragment = fm.findFragmentByTag(savedInstanceState.getString(KEY_FRAGMENT_STATE));
 			savedInstanceState.remove(KEY_FRAGMENT_STATE);
 		}
@@ -91,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.L
 				return false;
 			}
 		});
-		//TODO set reselected navigation listener?
 
 		if(activeFragment == null) {
 			displayFragment(homeFragment);

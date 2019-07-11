@@ -25,6 +25,7 @@ import com.parse.SaveCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.example.instagram.utils.Photos.PICK_PHOTO_CODE;
 
@@ -84,13 +85,12 @@ public class ProfileFragment extends Fragment {
 		ParseUser user = ParseUser.getCurrentUser();
 		if(user != null) {
 			tvUsername.setText(user.getUsername());
-			//Todo Circular profile pictures
 			ParseFile profilePicture = user.getParseFile("profilePicture");
 			if(profilePicture != null)
-				Glide.with(getContext()).load(profilePicture.getUrl()
-						.replace("http", "https"))
+				Glide.with(getContext()).load(profilePicture.getUrl().replace("http", "https"))
 						.placeholder(R.drawable.instagram_user_filled_24)
 						.error(R.drawable.instagram_user_filled_24)
+						.bitmapTransform(new CropCircleTransformation(getContext()))
 						.into(ivProfile);
 		}
 		btnAddPicture.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +104,7 @@ public class ProfileFragment extends Fragment {
 				}
 			}
 		});
+		getFragmentManager().beginTransaction().replace(R.id.flProfilePosts, ViewCurUserFragment.newInstance(ParseUser.getCurrentUser()), "view_user").commit();
 	}
 
 	@Override

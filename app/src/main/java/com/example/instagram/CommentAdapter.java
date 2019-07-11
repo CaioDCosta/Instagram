@@ -22,6 +22,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
@@ -64,7 +65,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 		viewHolder.tvUsername.setText(comment.getUser().getUsername());
 		ParseFile profilePicture = comment.getUser().getParseFile("profilePicture");
 		if(profilePicture != null)
-			Glide.with(context).load(profilePicture.getUrl().replace("http", "https")).placeholder(R.drawable.instagram_user_filled_24).into(viewHolder.ivProfile);
+			Glide.with(context).load(profilePicture.getUrl().replace("http", "https"))
+					.placeholder(R.drawable.instagram_user_filled_24)
+					.bitmapTransform(new CropCircleTransformation(context))
+					.into(viewHolder.ivProfile);
 		viewHolder.tvTime.setText(Time.getRelativeTimeAgo(comment.getCreatedAt()));
 	}
 

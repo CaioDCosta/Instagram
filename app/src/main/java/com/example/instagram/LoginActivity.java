@@ -1,5 +1,5 @@
 // Todo: Indeterminate progress bar on posting, restyle login in and sign pages,
-//  show user posts by clicking, save post(?)
+//  save post(?)
 
 package com.example.instagram;
 

@@ -1,22 +1,15 @@
 package com.example.instagram;
 
-
-import android.content.DialogInterface;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.example.instagram.model.Post;
 import com.parse.FindCallback;
@@ -31,59 +24,37 @@ import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
-public class ViewUserFragment extends DialogFragment {
-
+public class ViewCurUserFragment extends Fragment {
 	private List<Post> posts;
 	private PostAdapter adapter;
 	private static final int PAGE_SIZE = 10;
 	private int page = 0;
 	private EndlessRecyclerViewScrollListener scrollListener;
-	private OnDismissListener listener;
 
 	private ParseUser user;
 
-	@BindView(R.id.rvProfile) RecyclerView rvProfile;
+	@BindView(R.id.rvProfile)
+	RecyclerView rvProfile;
 
-	interface OnDismissListener {
-		public void onDismiss();
-	}
-
-	public ViewUserFragment() {
+	public ViewCurUserFragment() {
 		// Required empty public constructor
 	}
 
-	public static ViewUserFragment newInstance(ParseUser user) {
-		ViewUserFragment viewUserFragment = new ViewUserFragment();
-		viewUserFragment.user = user;
-		viewUserFragment.setRetainInstance(true);
-		return viewUserFragment;
+	public static ViewCurUserFragment newInstance(ParseUser user) {
+		ViewCurUserFragment viewCurUserFragment = new ViewCurUserFragment();
+		viewCurUserFragment.user = user;
+		viewCurUserFragment.setRetainInstance(true);
+		return viewCurUserFragment;
 	}
 
-	public void setOnDismissListener(OnDismissListener listener) {
-		this.listener = listener;
-	}
-
-	@Override
-	public void onDismiss(DialogInterface dialog) {
-		super.onDismiss(dialog);
-		if(listener != null) listener.onDismiss();
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		this.getDialog().setCanceledOnTouchOutside(true);
 		return inflater.inflate(R.layout.fragment_view_user, container, false);
 	}
 
-	@Override
-	public void onDestroyView() {
-		if (getDialog() != null && getRetainInstance()) {
-			getDialog().setDismissMessage(null);
-		}
-		super.onDestroyView();
-	}
 
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -132,6 +103,7 @@ public class ViewUserFragment extends DialogFragment {
 		// Adds the scroll listener to RecyclerView
 		rvProfile.addOnScrollListener(scrollListener);
 		loadNextPage();
+
 //		// Set up swipe refresh listener
 //		swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //			@Override
@@ -147,30 +119,13 @@ public class ViewUserFragment extends DialogFragment {
 //				android.R.color.holo_red_light);
 	}
 
-	public void onResume() {
-		// Store access variables for window and blank point
-		Window window = getDialog().getWindow();
-		Point size = new Point();
-		// Store dimensions of the screen in `size`
-		Display display = window.getWindowManager().getDefaultDisplay();
-		display.getSize(size);
-		// Set the width of the dialog proportional to 100% of the screen width
-		window.setLayout((int) (size.x * .95), WindowManager.LayoutParams.WRAP_CONTENT);
-		window.setGravity(Gravity.CENTER);
-		// Call super onResume after sizing
-		super.onResume();
-	}
-
 	public void loadNextPage() {
 		Post.Query query = new Post.Query();
 		query.withUser().byUser(user).limit(PAGE_SIZE).skip(page++ * PAGE_SIZE).byNewestFirst();
 		query.findInBackground(new FindCallback<Post>() {
 			@Override
 			public void done(List<Post> objects, ParseException e) {
-				for(Post post : objects) {
-					posts.add(post);
-					adapter.notifyItemInserted(posts.size() - 2);
-				}
+				adapter.addAll(objects);
 			}
 		});
 	}

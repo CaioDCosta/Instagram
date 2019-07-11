@@ -157,6 +157,7 @@ public class HomeFragment extends Fragment {
 			public void done(List<Post> objects, ParseException e) {
 				posts.add(0, objects.get(0));
 				adapter.notifyItemInserted(0);
+				((MainActivity) getActivity()).pbLoading.setVisibility(View.GONE);
 				Snackbar sb = Snackbar.make(rvFeed, "New post created!", Snackbar.LENGTH_LONG)
 						.setAction("See post", new View.OnClickListener() {
 							@Override

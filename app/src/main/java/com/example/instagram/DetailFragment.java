@@ -36,6 +36,7 @@ import com.parse.SaveCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 
 public class DetailFragment extends DialogFragment {
@@ -102,6 +103,7 @@ public class DetailFragment extends DialogFragment {
 					.replace("http", "https"))
 					.placeholder(R.drawable.instagram_user_filled_24)
 					.error(R.drawable.instagram_user_filled_24)
+					.bitmapTransform(new CropCircleTransformation(getContext()))
 					.into(ivProfile);
 
 		final CommentAdapter adapter = new CommentAdapter(getContext(), post);

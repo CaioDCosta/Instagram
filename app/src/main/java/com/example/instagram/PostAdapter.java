@@ -25,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
@@ -103,15 +104,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 		});
 
 		viewHolder.ibLike.setOnClickListener(new OnClickLike(post, viewHolder.tvLikeCount));
+
 		if(profilePicture != null)
 			Glide.with(context).load(profilePicture.getUrl()
 				.replace("http", "https"))
 				.placeholder(R.drawable.instagram_user_filled_24)
-					.error(R.drawable.instagram_user_filled_24)
+				.error(R.drawable.instagram_user_filled_24)
+				.bitmapTransform(new CropCircleTransformation(context))
 				.fitCenter().into(viewHolder.ivProfile);
 		else {
 			Glide.with(context).load(R.drawable.instagram_user_filled_24)
 					.error(R.drawable.instagram_user_filled_24)
+					.bitmapTransform(new CropCircleTransformation(context))
 					.fitCenter().into(viewHolder.ivProfile);
 		}
 
