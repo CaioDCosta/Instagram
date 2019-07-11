@@ -57,7 +57,6 @@ public class LoginFragment extends Fragment {
 	interface Listener {
 		public void onLogin(String username, String password);
 		public void onSignUpTransition(String username, String password);
-		public void onLoginDisplayed();
 	}
 
 	@Override
@@ -70,12 +69,6 @@ public class LoginFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		ButterKnife.bind(this, view);
-	}
-
-	@Override
-	public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-		super.onViewStateRestored(savedInstanceState);
-		listener.onLoginDisplayed();
 	}
 
 	@Override

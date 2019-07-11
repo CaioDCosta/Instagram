@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.instagram.model.Post;
+import com.example.instagram.onClicks.OnClickLike;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +28,11 @@ public class DetailFragment extends DialogFragment {
 
 
 	private Post post;
+	private ImageButton ibLikeParent;
+
+	interface OnLikeClickListener {
+		public void onLikeClick();
+	}
 
 	@BindView(R.id.ibComment)       ImageButton ibComment;
 	@BindView(R.id.ibDirect)        ImageButton ibDirect;
@@ -37,9 +43,10 @@ public class DetailFragment extends DialogFragment {
 	@BindView(R.id.tvUsername)  	TextView tvUsername;
 	@BindView(R.id.tvDescription)   TextView tvDescription;
 
-	public static DetailFragment newInstance(Post post) {
+	public static DetailFragment newInstance(Post post, ImageButton ibLike) {
 		DetailFragment detailFragment = new DetailFragment();
 		detailFragment.post = post;
+		detailFragment.ibLikeParent = ibLike;
 		return detailFragment;
 	}
 
@@ -49,10 +56,13 @@ public class DetailFragment extends DialogFragment {
 		ButterKnife.bind(this, view);
 		tvDescription.setText(post.getDescription());
 		tvUsername.setText(post.getUser().getUsername());
+		ibLike.setSelected(ibLikeParent.isSelected());
 		Glide.with(getContext()).load(post.getImage().getUrl().replace("http", "https"))
 				.placeholder(R.drawable.nav_logo_whiteout).error(R.drawable.nav_logo_whiteout).into(ivPicture);
+
+
 //		ibComment.setOnClickListener(new MyClickListener(post));
-		// Todo click buttons
+		ibLike.setOnClickListener(new OnClickLike(post, ibLikeParent));
 	}
 
 	public DetailFragment() {

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.instagram.model.Post;
@@ -30,19 +32,21 @@ import butterknife.ButterKnife;
 
 public class HomeFragment extends Fragment {
 
+	private static final String KEY_POSITION = "position";
+
 	private EndlessRecyclerViewScrollListener scrollListener;
 	private static final int PAGE_SIZE = 5;
 	private int page = 0;
 	private List<Post> posts;
 	private PostAdapter adapter;
 
-	@BindView(R.id.rvFeed)      RecyclerView rvFeed;
+	@BindView(R.id.rvFeed) RecyclerView rvFeed;
+	@BindView(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
 
 	public HomeFragment() {
 		// Required empty public constructor
 	}
 
-	// TODO: Rename and change types and number of parameters
 	public static HomeFragment newInstance() {
 		HomeFragment fragment = new HomeFragment();
 		return fragment;
@@ -51,7 +55,7 @@ public class HomeFragment extends Fragment {
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setRetainInstance(true);
+//		setRetainInstance(true);
 	}
 
 	@Override
@@ -61,15 +65,29 @@ public class HomeFragment extends Fragment {
 	}
 
 	@Override
+	public void onSaveInstanceState(@NonNull Bundle outState) {
+		outState.putInt(KEY_POSITION, ((LinearLayoutManager) rvFeed.getLayoutManager()).findFirstCompletelyVisibleItemPosition());
+		super.onSaveInstanceState(outState);
+	}
+
+	@Override
+	public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+		super.onViewStateRestored(savedInstanceState);
+		if(savedInstanceState != null) {
+			rvFeed.smoothScrollToPosition(savedInstanceState.getInt(KEY_POSITION));
+		}
+	}
+
+	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		ButterKnife.bind(this, view);
 		posts = new ArrayList<Post>();
 		// Create adapter passing in the posts
 		adapter = new PostAdapter(posts, getContext(), new PostAdapter.OnCardClick() {
 			@Override
-			public void onCardClick(Post post) {
+			public void onCardClick(Post post, ImageButton ibLike) {
 				FragmentManager fm = getFragmentManager();
-				DetailFragment detailFragment = DetailFragment.newInstance(post);
+				DetailFragment detailFragment = DetailFragment.newInstance(post, ibLike);
 				detailFragment.show(fm,null);
 			}
 		});
@@ -82,25 +100,51 @@ public class HomeFragment extends Fragment {
 		scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
 			@Override
 			public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-				loadNextDataFromApi();
+				loadNextPage();
 			}
 		};
 		// Adds the scroll listener to RecyclerView
 		rvFeed.addOnScrollListener(scrollListener);
-		loadNextDataFromApi();
+
+		// Set up swipe refresh listener
+		swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				loadFirstPage();
+			}
+		});
+
+		// Configure swipe container colors
+		swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+				android.R.color.holo_green_light,
+				android.R.color.holo_orange_light,
+				android.R.color.holo_red_light);
+
+
+		loadNextPage();
 	}
 
-	private void loadNextDataFromApi() {
+	private void loadFirstPage() {
+		swipeContainer.setRefreshing(true);
+		page = 0;
+		scrollListener.resetState();
+		adapter.clear();
+		loadNextPage();
+	}
+
+	private void loadNextPage() {
 		Log.d("MainActivity", "Loading more data from API");
 		Post.Query query = new Post.Query();
 		query.withUser().limit(PAGE_SIZE).skip(page++ * PAGE_SIZE).byNewestFirst();
 		query.findInBackground(new FindCallback<Post>() {
 			@Override
 			public void done(List<Post> objects, ParseException e) {
-				for(Post post : objects) {
-					posts.add(post);
-					adapter.notifyItemInserted(adapter.getItemCount() - 1);
-				}
+//				for(Post post : objects) {
+////					posts.add(post);
+////					adapter.notifyItemInserted(adapter.getItemCount() - 1);
+////				}
+				adapter.addAll(objects);
+				if(swipeContainer.isRefreshing()) swipeContainer.setRefreshing(false);
 			}
 		});
 	}
@@ -117,7 +161,7 @@ public class HomeFragment extends Fragment {
 						.setAction("See post", new View.OnClickListener() {
 							@Override
 							public void onClick(View v) {
-								rvFeed.scrollToPosition(0);
+								rvFeed.smoothScrollToPosition(0);
 							}
 				});
 				sb.setActionTextColor(getResources().getColor(android.R.color.holo_blue_dark));
@@ -132,12 +176,6 @@ public class HomeFragment extends Fragment {
 			}
 		});
 	}
-
-	public void onPost() {
-		page = 0;
-		loadNextDataFromApi();
-	}
-
 
 	public void onPostComplete() {
 		loadMostRecentPost();

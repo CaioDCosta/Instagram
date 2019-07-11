@@ -3,10 +3,8 @@ package com.example.instagram;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.instagram.model.Post;
+import com.example.instagram.utils.Photos;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -33,19 +32,22 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.app.Activity.RESULT_OK;
+import static com.example.instagram.utils.Photos.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE;
+import static com.example.instagram.utils.Photos.PICK_PHOTO_CODE;
 
 public class ComposeFragment extends Fragment {
 
 	// Photo capture
-	public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
-	public String photoFileName = "photo.jpg";
+	public static final String photoFileName = "photo.jpg";
+
 	File photoFile;
+	ParseFile parseFile;
 
 	// Bind Views
 	@BindView(R.id.ivPicture)       ImageView ivPicture;
 	@BindView(R.id.btnPost)	        Button btnPost;
 	@BindView(R.id.btnSelect)       Button btnSelect;
+	@BindView(R.id.btnCapture)      Button btnCapture;
 	@BindView(R.id.etDescription)   EditText etDescription;
 
 	private Listener listener;
@@ -80,7 +82,7 @@ public class ComposeFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		return inflater.inflate(R.layout.fragment_compose, container, false);
 	}
 
@@ -90,13 +92,13 @@ public class ComposeFragment extends Fragment {
 		btnPost.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(photoFile == null || ivPicture.getDrawable() == null) {
+				if(ivPicture.getDrawable() == null) {
 					Log.e("MainActivity", "No photo selected");
 					Toast.makeText(getContext(), "No photo!", Toast.LENGTH_SHORT).show();
 					return;
 				}
 				Post post = new Post();
-				post.setImage(new ParseFile(photoFile));
+				post.setImage(parseFile);
 				post.setUser(ParseUser.getCurrentUser());
 				post.setDescription(etDescription.getText().toString());
 				post.saveInBackground(new SaveCallback() {
@@ -117,65 +119,45 @@ public class ComposeFragment extends Fragment {
 			}
 		});
 
+		btnCapture.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// create Intent to take a picture and return control to the calling application
+				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				// Create a File reference to access to future access
+				photoFile = Photos.getPhotoFileUri(photoFileName, getActivity());
+
+				// wrap File object into a content provider
+				// required for API >= 24
+				// See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
+				Uri fileProvider = FileProvider.getUriForFile(getActivity(), "com.example.instagram.fileprovider", photoFile);
+				intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
+
+				// If you call startActivityForResult() using an intent that no app can handle, your app will crash.
+				// So as long as the result is not null, it's safe to use the intent.
+				if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+					// Start the image capture intent to take photo
+					startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+				}
+			}
+		});
 		btnSelect.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				launchCamera(v);
+				Intent intent = new Intent(Intent.ACTION_PICK,
+						MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+					// Bring up gallery to select a photo
+					startActivityForResult(intent, PICK_PHOTO_CODE);
+				}
 			}
 		});
 	}
 
-	public void launchCamera(View view) {
-
-
-		// create Intent to take a picture and return control to the calling application
-		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		// Create a File reference to access to future access
-		photoFile = getPhotoFileUri(photoFileName);
-
-		// wrap File object into a content provider
-		// required for API >= 24
-		// See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
-		Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.example.instagram.fileprovider", photoFile);
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-
-		// If you call startActivityForResult() using an intent that no app can handle, your app will crash.
-		// So as long as the result is not null, it's safe to use the intent.
-		if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-			// Start the image capture intent to take photo
-			startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-		}
-	}
-
-	// Returns the File for a photo stored on disk given the fileName
-	public File getPhotoFileUri(String fileName) {
-		// Get safe storage directory for photos
-		// Use `getExternalFilesDir` on Context to access package-specific directories.
-		// This way, we don't need to request external read/write runtime permissions.
-		File mediaStorageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "MainActivity");
-
-		// Create the storage directory if it does not exist
-		if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-			Log.d("MainActivity", "Failed to create directory");
-		}
-
-		// Return the file target for the photo based on filename
-		File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
-
-		return file;
-	}
-
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-			if (resultCode == RESULT_OK) {
-				// by this point we have the camera photo on disk
-				Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-				// Load the taken image into a preview
-				ivPicture.setImageBitmap(takenImage);
-			} else { // Result was a failure
-				Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
-			}
-		}
+		Bitmap bitmap = Photos.onActivityResult(requestCode, resultCode, data, getActivity(), photoFile, ivPicture);
+		parseFile = Photos.getParseFile(bitmap);
+		ivPicture.setImageBitmap(bitmap);
 	}
 }

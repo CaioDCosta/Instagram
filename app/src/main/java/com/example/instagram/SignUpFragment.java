@@ -76,6 +76,7 @@ public class SignUpFragment extends Fragment {
 					Toast.makeText(getContext(), "Passwords do not match!", Toast.LENGTH_SHORT).show();
 					return;
 				}
+				listener.onSignUp(etUsername.getText().toString(), etUsername.getText().toString());
 			}
 		});
 	}

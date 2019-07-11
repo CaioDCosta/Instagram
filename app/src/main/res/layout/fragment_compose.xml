@@ -38,13 +38,13 @@
                 app:layout_constraintStart_toStartOf="@+id/etDescription">
 
                 <Button
-                    android:id="@+id/btnSelect"
+                    android:id="@+id/btnCapture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@string/select_image"
+                    android:text="@string/take_picture"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -59,6 +59,20 @@
                     android:text="@string/post_image"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnSelect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/select_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnPost"
+                    app:layout_constraintStart_toEndOf="@+id/btnCapture"
                     app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
 
@@ -75,8 +89,6 @@
                 android:hint="@string/enter_a_description_of_the_phot"
                 android:inputType="textMultiLine"
                 android:isScrollContainer="true"
-                android:shadowColor="#666666"
-                android:shadowRadius="2"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

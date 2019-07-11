@@ -13,7 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.instagram.model.Interaction;
 import com.example.instagram.model.Post;
+import com.example.instagram.onClicks.OnClickLike;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import java.util.List;
 
@@ -27,7 +33,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 	private OnCardClick listener;
 
 	interface OnCardClick {
-		public void onCardClick(Post post);
+		public void onCardClick(Post post, ImageButton ibLikeParent);
 	}
 
 	public PostAdapter(List<Post> posts, Context context, OnCardClick listener) {
@@ -49,14 +55,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 		viewHolder.cvBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				listener.onCardClick(viewHolder.post);
+				listener.onCardClick(viewHolder.post, viewHolder.ibLike);
 			}
 		});
 		return viewHolder;
 	}
 
 	@Override
-	public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+	public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
 		// Get the data model based on position
 		Post post = posts.get(i);
 
@@ -71,10 +77,30 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 		Glide.with(context).load(post.getImage().getUrl().replace("http", "https"))
 				.placeholder(R.drawable.nav_logo_whiteout)
 				.error(R.drawable.nav_logo_whiteout)
-				.into(viewHolder.ivPicture);
+				.centerCrop().into(viewHolder.ivPicture);
 
-		//TODO add profile pictures
-		//Glide.with(context).load(post.getUser().getProfilePicture().getUrl()).into(viewHolder.ivProfile);
+		ParseFile profilePicture = post.getUser().getParseFile("profilePicture");
+
+		Interaction.Query query = new Interaction.Query();
+		query.getLikes().onPost(post).withUser(ParseUser.getCurrentUser()).getFirstInBackground(new GetCallback<Interaction>() {
+			@Override
+			public void done(Interaction object, ParseException e) {
+				viewHolder.ibLike.setSelected(object != null);
+			}
+		});
+		viewHolder.ibLike.setOnClickListener(new OnClickLike(post, viewHolder.ibLike));
+
+		if(profilePicture != null)
+			Glide.with(context).load(profilePicture.getUrl()
+				.replace("http", "https"))
+				.placeholder(R.drawable.instagram_user_filled_24)
+					.error(R.drawable.instagram_user_filled_24)
+				.fitCenter().into(viewHolder.ivProfile);
+		else {
+			Glide.with(context).load(R.drawable.instagram_user_filled_24)
+					.error(R.drawable.instagram_user_filled_24)
+					.fitCenter().into(viewHolder.ivProfile);
+		}
 
 		viewHolder.tvDescription.setText(post.getDescription());
 	}
@@ -82,6 +108,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 	@Override
 	public int getItemCount() {
 		return posts.size();
+	}
+
+	public void clear() {
+		posts.clear();
+		notifyDataSetChanged();
+	}
+
+	public void addAll(List<Post> list) {
+		posts.addAll(list);
+		notifyDataSetChanged();
 	}
 
 	class ViewHolder extends RecyclerView.ViewHolder {
