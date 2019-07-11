@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.example.instagram.model.Interaction;
 import com.example.instagram.model.Post;
 import com.example.instagram.onClicks.OnClickLike;
+import com.example.instagram.utils.Time;
 import com.parse.CountCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -50,8 +51,10 @@ public class DetailFragment extends DialogFragment {
 	@BindView(R.id.tvUsername)  	TextView tvUsername;
 	@BindView(R.id.tvDescription)   TextView tvDescription;
 	@BindView(R.id.tvLikeCount)     TextView tvLikeCount;
+	@BindView(R.id.tvTime)          TextView tvTime;
 	@BindView(R.id.rvComments)      RecyclerView rvComments;
 	@BindView(R.id.etComment)       EditText etComment;
+
 
 
 	public static DetailFragment newInstance(Post post, ImageButton ibLike, TextView tvLikeCount) {
@@ -80,7 +83,7 @@ public class DetailFragment extends DialogFragment {
 		ibLike.setSelected(ibLikeParent.isSelected());
 		Glide.with(getContext()).load(post.getImage().getUrl().replace("http", "https"))
 				.placeholder(android.R.drawable.ic_menu_report_image).error(android.R.drawable.ic_menu_report_image).into(ivPicture);
-		ParseUser user = ParseUser.getCurrentUser();
+		ParseUser user = post.getUser();
 		ParseFile profilePicture = user.getParseFile("profilePicture");
 		if(profilePicture != null)
 			Glide.with(getContext()).load(profilePicture.getUrl()
@@ -127,6 +130,7 @@ public class DetailFragment extends DialogFragment {
 				tvLikeCount.setText(String.valueOf(count));
 			}
 		});
+		tvTime.setText(Time.getRelativeTimeAgo(post.getCreatedAt()));
 	}
 
 	public DetailFragment() {

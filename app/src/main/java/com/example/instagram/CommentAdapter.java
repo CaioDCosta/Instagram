@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.instagram.model.Interaction;
 import com.example.instagram.model.Post;
+import com.example.instagram.utils.Time;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -64,6 +65,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 		ParseFile profilePicture = comment.getUser().getParseFile("profilePicture");
 		if(profilePicture != null)
 			Glide.with(context).load(profilePicture.getUrl().replace("http", "https")).placeholder(R.drawable.instagram_user_filled_24).into(viewHolder.ivProfile);
+		viewHolder.tvTime.setText(Time.getRelativeTimeAgo(comment.getCreatedAt()));
 	}
 
 	@Override
@@ -72,9 +74,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 	}
 
 	public static class ViewHolder extends RecyclerView.ViewHolder {
-		@BindView(R.id.tvComment) TextView tvComment;
-		@BindView(R.id.tvUsername) TextView tvUsername;
-		@BindView(R.id.ivProfile) ImageView ivProfile;
+		@BindView(R.id.tvComment)   TextView tvComment;
+		@BindView(R.id.tvUsername)  TextView tvUsername;
+		@BindView(R.id.tvTime)      TextView tvTime;
+		@BindView(R.id.ivProfile)   ImageView ivProfile;
 
 		public ViewHolder(@NonNull View itemView) {
 			super(itemView);

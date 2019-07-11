@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.instagram.model.Interaction;
 import com.example.instagram.model.Post;
 import com.example.instagram.onClicks.OnClickLike;
+import com.example.instagram.utils.Time;
 import com.parse.CountCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -119,6 +120,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 		}
 
 		viewHolder.tvDescription.setText(post.getDescription());
+		viewHolder.tvTime.setText(Time.getRelativeTimeAgo(post.getCreatedAt()));
 	}
 
 	@Override
@@ -148,6 +150,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 		@BindView(R.id.tvUsername)      TextView tvUsername;
 		@BindView(R.id.tvDescription)   TextView tvDescription;
 		@BindView(R.id.tvLikeCount)     TextView tvLikeCount;
+		@BindView(R.id.tvTime)          TextView tvTime;
+
 		public Post post;
 
 		public ViewHolder(View view) {

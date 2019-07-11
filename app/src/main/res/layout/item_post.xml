@@ -96,6 +96,16 @@
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/ivProfile"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="5 min."
+                    app:layout_constraintBottom_toBottomOf="@+id/tvUsername"
+                    app:layout_constraintStart_toEndOf="@+id/tvUsername"
+                    app:layout_constraintTop_toTopOf="@id/tvUsername" />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout

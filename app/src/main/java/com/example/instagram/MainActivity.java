@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.L
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		ButterKnife.bind(this);
-		ParseUser currentUser = ParseUser.getCurrentUser();
 
 		if(savedInstanceState != null) {
 			homeFragment = (HomeFragment) fm.findFragmentByTag(FRAGMENT_KEY_HOME);
@@ -78,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.L
 		if(!profileFragment.isAdded()) fm.beginTransaction().add(R.id.flPlaceholder, profileFragment, FRAGMENT_KEY_PROFILE).hide(profileFragment).commit();
 		if(!homeFragment.isAdded()) fm.beginTransaction().add(R.id.flPlaceholder, homeFragment, FRAGMENT_KEY_HOME).hide(homeFragment).commit();
 
-		//Todo why does first switch not work?
 		bottom_navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 			@Override
 			public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

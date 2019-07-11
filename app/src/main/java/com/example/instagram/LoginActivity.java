@@ -1,5 +1,5 @@
 // Todo: Timestamp on posts and comments, indeterminate progress bar on posting, restyle login in and sign pages,
-//  show user posts by clicking, show number of likes, save post(?), figure out why user session isn't persisting
+//  show user posts by clicking, show number of likes, save post(?)
 
 package com.example.instagram;
 
@@ -48,6 +48,10 @@ public class LoginActivity extends AppCompatActivity
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if(ParseUser.getCurrentUser() != null) {
+			startActivity(new Intent(this, MainActivity.class));
+			finish();
+		}
 		setContentView(R.layout.activity_login);
 		getSupportFragmentManager().beginTransaction().add(R.id.flPlaceholder, loginFragment, FRAGMENT_KEY_LOGIN).commit();
 	}
