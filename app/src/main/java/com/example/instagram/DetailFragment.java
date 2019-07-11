@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.example.instagram.model.Interaction;
 import com.example.instagram.model.Post;
 import com.example.instagram.onClicks.OnClickLike;
+import com.parse.CountCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -41,14 +42,8 @@ public class DetailFragment extends DialogFragment {
 
 	private Post post;
 	private ImageButton ibLikeParent;
+	private TextView tvLikeCountParent;
 
-
-	interface OnLikeClickListener {
-		public void onLikeClick();
-	}
-
-	@BindView(R.id.ibComment)       ImageButton ibComment;
-	@BindView(R.id.ibDirect)        ImageButton ibDirect;
 	@BindView(R.id.ibLike)          ImageButton ibLike;
 	@BindView(R.id.ibSave)          ImageButton ibSave;
 	@BindView(R.id.ibPostComment)   ImageButton ibPostComment;
@@ -56,14 +51,16 @@ public class DetailFragment extends DialogFragment {
 	@BindView(R.id.ivProfile)       ImageView ivProfile;
 	@BindView(R.id.tvUsername)  	TextView tvUsername;
 	@BindView(R.id.tvDescription)   TextView tvDescription;
+	@BindView(R.id.tvLikeCount)     TextView tvLikeCount;
 	@BindView(R.id.rvComments)      RecyclerView rvComments;
 	@BindView(R.id.etComment)       EditText etComment;
 
 
-	public static DetailFragment newInstance(Post post, ImageButton ibLike) {
+	public static DetailFragment newInstance(Post post, ImageButton ibLike, TextView tvLikeCount) {
 		DetailFragment detailFragment = new DetailFragment();
 		detailFragment.post = post;
 		detailFragment.ibLikeParent = ibLike;
+		detailFragment.tvLikeCountParent = tvLikeCount;
 		return detailFragment;
 	}
 
@@ -75,7 +72,7 @@ public class DetailFragment extends DialogFragment {
 		tvUsername.setText(post.getUser().getUsername());
 		ibLike.setSelected(ibLikeParent.isSelected());
 		Glide.with(getContext()).load(post.getImage().getUrl().replace("http", "https"))
-				.placeholder(R.drawable.nav_logo_whiteout).error(R.drawable.nav_logo_whiteout).into(ivPicture);
+				.placeholder(android.R.drawable.ic_menu_report_image).error(android.R.drawable.ic_menu_report_image).into(ivPicture);
 		ParseUser user = ParseUser.getCurrentUser();
 		ParseFile profilePicture = user.getParseFile("profilePicture");
 		if(profilePicture != null)
@@ -84,7 +81,6 @@ public class DetailFragment extends DialogFragment {
 					.placeholder(R.drawable.instagram_user_filled_24)
 					.error(R.drawable.instagram_user_filled_24)
 					.into(ivProfile);
-
 
 		final CommentAdapter adapter = new CommentAdapter(getContext(), post);
 		rvComments.setAdapter(adapter);
@@ -116,7 +112,14 @@ public class DetailFragment extends DialogFragment {
 				});
 			}
 		});
-		ibLike.setOnClickListener(new OnClickLike(post, ibLikeParent));
+		ibLike.setOnClickListener(new OnClickLike(post, tvLikeCount, ibLikeParent, tvLikeCountParent));
+		Interaction.Query query = new Interaction.Query();
+		query.onPost(post).getLikes().countInBackground(new CountCallback() {
+			@Override
+			public void done(int count, ParseException e) {
+				tvLikeCount.setText(String.valueOf(count));
+			}
+		});
 	}
 
 	public DetailFragment() {

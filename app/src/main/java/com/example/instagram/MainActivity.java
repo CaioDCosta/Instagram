@@ -1,3 +1,6 @@
+// Todo: Timestamp on posts and comments, indeterminate progress bar on posting, restyle login in and sign pages,
+//  show user posts by clicking, show number of likes, save post
+
 package com.example.instagram;
 
 import android.content.Context;
@@ -30,7 +33,6 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity
 		implements SignUpFragment.Listener, LoginFragment.Listener,
 		ProfileFragment.Listener, ComposeFragment.Listener {
-
 
 	// Fragments
 	private LoginFragment loginFragment = LoginFragment.newInstance();;

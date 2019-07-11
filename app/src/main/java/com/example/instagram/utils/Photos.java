@@ -24,7 +24,6 @@ import java.io.IOException;
 import static android.app.Activity.RESULT_OK;
 
 public class Photos {
-
 	public static final int PICK_PHOTO_CODE = 1046;
 	public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
 

@@ -85,9 +85,9 @@ public class HomeFragment extends Fragment {
 		// Create adapter passing in the posts
 		adapter = new PostAdapter(posts, getContext(), new PostAdapter.OnCardClick() {
 			@Override
-			public void onCardClick(Post post, ImageButton ibLike) {
+			public void onCardClick(Post post, ImageButton ibLike, TextView tvLikeCount) {
 				FragmentManager fm = getFragmentManager();
-				DetailFragment detailFragment = DetailFragment.newInstance(post, ibLike);
+				DetailFragment detailFragment = DetailFragment.newInstance(post, ibLike, tvLikeCount);
 				detailFragment.show(fm,null);
 			}
 		});

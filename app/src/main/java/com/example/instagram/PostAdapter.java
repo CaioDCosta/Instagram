@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.instagram.model.Interaction;
 import com.example.instagram.model.Post;
 import com.example.instagram.onClicks.OnClickLike;
+import com.parse.CountCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -33,7 +34,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 	private OnCardClick listener;
 
 	interface OnCardClick {
-		public void onCardClick(Post post, ImageButton ibLikeParent);
+		public void onCardClick(Post post, ImageButton ibLike, TextView tvLikeCount);
 	}
 
 	public PostAdapter(List<Post> posts, Context context, OnCardClick listener) {
@@ -48,20 +49,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 		LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
 
 		// Inflate the custom layout
-		View view = inflater.inflate(R.layout.item_post, viewGroup, false);
+		final View view = inflater.inflate(R.layout.item_post, viewGroup, false);
 
 		// Return a new holder instance
 		final ViewHolder viewHolder = new ViewHolder(view);
 		viewHolder.cvBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				listener.onCardClick(viewHolder.post, viewHolder.ibLike);
+				listener.onCardClick(viewHolder.post, viewHolder.ibLike, viewHolder.tvLikeCount);
 			}
 		});
 		viewHolder.ibComment.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				listener.onCardClick(viewHolder.post, viewHolder.ibLike);
+				listener.onCardClick(viewHolder.post, viewHolder.ibLike, viewHolder.tvLikeCount);
 			}
 		});
 		return viewHolder;
@@ -76,25 +77,32 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
 		// Set item views based on your views and data model
 		viewHolder.tvUsername.setText(post.getUser().getUsername());
+		Interaction.Query query = new Interaction.Query();
+		query.getLikes().onPost(post).countInBackground(new CountCallback() {
+			@Override
+			public void done(int count, ParseException e) {
+				viewHolder.tvLikeCount.setText(String.valueOf(count));
+			}
+		});
 
 		Log.d("MainActivity", post.getImage().getUrl());
 
 		//TODO Make this less hacky?
 		Glide.with(context).load(post.getImage().getUrl().replace("http", "https"))
-				.placeholder(R.drawable.nav_logo_whiteout)
-				.error(R.drawable.nav_logo_whiteout)
+				.placeholder(android.R.drawable.ic_menu_report_image)
+				.error(android.R.drawable.ic_menu_report_image)
 				.into(viewHolder.ivPicture);
 
 		ParseFile profilePicture = post.getUser().getParseFile("profilePicture");
 
-		Interaction.Query query = new Interaction.Query();
+		query = new Interaction.Query();
 		query.getLikes().onPost(post).byUser(ParseUser.getCurrentUser()).getFirstInBackground(new GetCallback<Interaction>() {
 			@Override
 			public void done(Interaction object, ParseException e) {
 				viewHolder.ibLike.setSelected(object != null);
 			}
 		});
-		viewHolder.ibLike.setOnClickListener(new OnClickLike(post, viewHolder.ibLike));
+		viewHolder.ibLike.setOnClickListener(new OnClickLike(post, viewHolder.tvLikeCount));
 
 		if(profilePicture != null)
 			Glide.with(context).load(profilePicture.getUrl()
@@ -137,6 +145,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 		@BindView(R.id.ivProfile)       ImageView ivProfile;
 		@BindView(R.id.tvUsername)      TextView tvUsername;
 		@BindView(R.id.tvDescription)   TextView tvDescription;
+		@BindView(R.id.tvLikeCount)     TextView tvLikeCount;
 		public Post post;
 
 		public ViewHolder(View view) {

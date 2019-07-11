@@ -3,6 +3,7 @@ package com.example.instagram.onClicks;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.instagram.model.Interaction;
 import com.example.instagram.model.Post;
@@ -14,21 +15,28 @@ import com.parse.SaveCallback;
 public class OnClickLike implements View.OnClickListener {
 
 	private Post post;
-	private ImageButton parent;
+	private ImageButton ibParent;
+	private TextView tvParent;
+	private TextView tvLikeCount;
 
-	public OnClickLike(Post post, ImageButton parent) {
+	public OnClickLike(Post post, TextView tvLikeCount) {
+		this(post, tvLikeCount, null, tvLikeCount);
+	}
+
+	public OnClickLike(Post post, TextView tvLikeCount, ImageButton ibParent, TextView tvParent) {
 		this.post = post;
-		this.parent = parent;
+		this.ibParent = ibParent;
+		this.tvParent = tvParent;
+		this.tvLikeCount = tvLikeCount;
 	}
 
 	@Override
 	public void onClick(View v) {
 		boolean isLiked = v.isSelected();
+		int likes = Integer.parseInt(tvParent.getText().toString());
 		v.setSelected(!v.isSelected());
-		if(parent != null) {
-			parent.setSelected(v.isSelected());
-		}
 		if (isLiked) {
+			tvLikeCount.setText(String.valueOf(Integer.parseInt(tvParent.getText().toString()) - 1));
 			Interaction.Query query = new Interaction.Query();
 			query.getLikes().byUser(ParseUser.getCurrentUser()).onPost(post);
 			query.getFirstInBackground(new GetCallback<Interaction>() {
@@ -46,6 +54,7 @@ public class OnClickLike implements View.OnClickListener {
 			});
 		}
 		else {
+			tvLikeCount.setText(String.valueOf(Integer.parseInt(tvParent.getText().toString()) + 1));
 			Interaction interaction = new Interaction();
 			interaction.setComment("");
 			interaction.setPost(post);
@@ -61,6 +70,10 @@ public class OnClickLike implements View.OnClickListener {
 					}
 				}
 			});
+		}
+		if(ibParent != null) {
+			ibParent.setSelected(v.isSelected());
+			tvParent.setText(tvLikeCount.getText());
 		}
 	}
 }
