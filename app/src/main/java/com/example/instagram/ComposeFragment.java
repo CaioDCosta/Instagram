@@ -101,6 +101,7 @@ public class ComposeFragment extends Fragment {
 				post.setImage(parseFile);
 				post.setUser(ParseUser.getCurrentUser());
 				post.setDescription(etDescription.getText().toString());
+				post.setLikes(0);
 				post.saveInBackground(new SaveCallback() {
 					@Override
 					public void done(ParseException e) {

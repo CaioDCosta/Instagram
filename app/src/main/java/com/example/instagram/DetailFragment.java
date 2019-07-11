@@ -2,6 +2,7 @@ package com.example.instagram;
 
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,7 +29,6 @@ import com.example.instagram.model.Interaction;
 import com.example.instagram.model.Post;
 import com.example.instagram.onClicks.OnClickLike;
 import com.example.instagram.utils.Time;
-import com.parse.CountCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -40,8 +40,9 @@ import butterknife.ButterKnife;
 
 public class DetailFragment extends DialogFragment {
 	private Post post;
-	private ImageButton ibLikeParent;
-	private TextView tvLikeCountParent;
+	private boolean isLiked;
+
+	private OnDismissListener listener;
 
 	@BindView(R.id.ibLike)          ImageButton ibLike;
 	@BindView(R.id.ibSave)          ImageButton ibSave;
@@ -55,13 +56,24 @@ public class DetailFragment extends DialogFragment {
 	@BindView(R.id.rvComments)      RecyclerView rvComments;
 	@BindView(R.id.etComment)       EditText etComment;
 
+	interface OnDismissListener {
+		public void onChildDismissed();
+	}
 
+	public void setOnDismissListener(OnDismissListener listener) {
+		this.listener = listener;
+	}
 
-	public static DetailFragment newInstance(Post post, ImageButton ibLike, TextView tvLikeCount) {
+	@Override
+	public void onDismiss(DialogInterface dialog) {
+		super.onDismiss(dialog);
+		if(listener != null) listener.onChildDismissed();
+	}
+
+	public static DetailFragment newInstance(Post post, boolean isLiked) {
 		DetailFragment detailFragment = new DetailFragment();
 		detailFragment.post = post;
-		detailFragment.ibLikeParent = ibLike;
-		detailFragment.tvLikeCountParent = tvLikeCount;
+		detailFragment.isLiked = isLiked;
 		detailFragment.setRetainInstance(true);
 		return detailFragment;
 	}
@@ -80,7 +92,7 @@ public class DetailFragment extends DialogFragment {
 		ButterKnife.bind(this, view);
 		tvDescription.setText(post.getDescription());
 		tvUsername.setText(post.getUser().getUsername());
-		ibLike.setSelected(ibLikeParent.isSelected());
+		ibLike.setSelected(isLiked);
 		Glide.with(getContext()).load(post.getImage().getUrl().replace("http", "https"))
 				.placeholder(android.R.drawable.ic_menu_report_image).error(android.R.drawable.ic_menu_report_image).into(ivPicture);
 		ParseUser user = post.getUser();
@@ -122,14 +134,8 @@ public class DetailFragment extends DialogFragment {
 				});
 			}
 		});
-		ibLike.setOnClickListener(new OnClickLike(post, tvLikeCount, ibLikeParent, tvLikeCountParent));
-		Interaction.Query query = new Interaction.Query();
-		query.onPost(post).getLikes().countInBackground(new CountCallback() {
-			@Override
-			public void done(int count, ParseException e) {
-				tvLikeCount.setText(String.valueOf(count));
-			}
-		});
+		ibLike.setOnClickListener(new OnClickLike(post, tvLikeCount));
+		tvLikeCount.setText(String.valueOf(post.getLikes()));
 		tvTime.setText(Time.getRelativeTimeAgo(post.getCreatedAt()));
 	}
 

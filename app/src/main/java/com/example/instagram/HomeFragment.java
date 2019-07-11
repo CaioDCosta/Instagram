@@ -53,7 +53,6 @@ public class HomeFragment extends Fragment {
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		setRetainInstance(true);
 	}
 
 	@Override
@@ -69,9 +68,15 @@ public class HomeFragment extends Fragment {
 		// Create adapter passing in the posts
 		adapter = new PostAdapter(posts, getContext(), new PostAdapter.OnCardClick() {
 			@Override
-			public void onCardClick(Post post, ImageButton ibLike, TextView tvLikeCount) {
+			public void onCardClick(final Post post, ImageButton ibLike, TextView tvLikeCount) {
 				FragmentManager fm = getFragmentManager();
-				DetailFragment detailFragment = DetailFragment.newInstance(post, ibLike, tvLikeCount);
+				DetailFragment detailFragment = DetailFragment.newInstance(post, ibLike.isSelected());
+				detailFragment.setOnDismissListener(new DetailFragment.OnDismissListener() {
+					@Override
+					public void onChildDismissed() {
+						adapter.notifyItemRangeChanged(0, adapter.getItemCount());
+					}
+				});
 				detailFragment.show(fm,null);
 			}
 		});

@@ -133,7 +133,6 @@ public class Photos {
 		// Compress image to lower quality scale 1 - 100
 		bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
 		byte[] image = stream.toByteArray();
-
 		// Create and return the ParseFile
 		return new ParseFile(image);
 	}

@@ -1,5 +1,5 @@
-// Todo: Timestamp on posts and comments, indeterminate progress bar on posting, restyle login in and sign pages,
-//  show user posts by clicking, show number of likes, save post(?)
+// Todo: Indeterminate progress bar on posting, restyle login in and sign pages,
+//  show user posts by clicking, save post(?)
 
 package com.example.instagram;
 

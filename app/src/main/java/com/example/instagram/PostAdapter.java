@@ -17,7 +17,6 @@ import com.example.instagram.model.Interaction;
 import com.example.instagram.model.Post;
 import com.example.instagram.onClicks.OnClickLike;
 import com.example.instagram.utils.Time;
-import com.parse.CountCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -80,13 +79,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
 		// Set item views based on your views and data model
 		viewHolder.tvUsername.setText(post.getUser().getUsername());
-		Interaction.Query query = new Interaction.Query();
-		query.getLikes().onPost(post).countInBackground(new CountCallback() {
-			@Override
-			public void done(int count, ParseException e) {
-				viewHolder.tvLikeCount.setText(String.valueOf(count));
-			}
-		});
+		viewHolder.tvLikeCount.setText(String.valueOf(post.getLikes()));
 
 		Log.d("LoginActivity", post.getImage().getUrl());
 
@@ -98,7 +91,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
 		ParseFile profilePicture = post.getUser().getParseFile("profilePicture");
 
-		query = new Interaction.Query();
+		Interaction.Query query = new Interaction.Query();
 		query.getLikes().onPost(post).byUser(ParseUser.getCurrentUser()).getFirstInBackground(new GetCallback<Interaction>() {
 			@Override
 			public void done(Interaction object, ParseException e) {
@@ -106,7 +99,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 			}
 		});
 		viewHolder.ibLike.setOnClickListener(new OnClickLike(post, viewHolder.tvLikeCount));
-
 		if(profilePicture != null)
 			Glide.with(context).load(profilePicture.getUrl()
 				.replace("http", "https"))
