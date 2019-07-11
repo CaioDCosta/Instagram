@@ -45,7 +45,7 @@ public class OnClickLike implements View.OnClickListener {
 					if(e == null) {
 						try {
 							object.delete();
-							Log.d("MainActivity", "Unlike successful");
+							Log.d("LoginActivity", "Unlike successful");
 						} catch (ParseException e1) {
 							e1.printStackTrace();
 						}
@@ -63,9 +63,9 @@ public class OnClickLike implements View.OnClickListener {
 				@Override
 				public void done(ParseException e) {
 					if (e == null) {
-						Log.d("MainActivity", "Like successful");
+						Log.d("LoginActivity", "Like successful");
 					} else {
-						Log.e("MainActivity", "Like failed");
+						Log.e("LoginActivity", "Like failed");
 						e.printStackTrace();
 					}
 				}

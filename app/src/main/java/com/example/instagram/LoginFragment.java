@@ -16,12 +16,6 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class LoginFragment extends Fragment {
 
 	private Listener listener;
@@ -29,7 +23,7 @@ public class LoginFragment extends Fragment {
 	View.OnClickListener onClickLogin = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			Log.d("MainActivity", "Click");
+			Log.d("LoginActivity", "Click");
 			listener.onLogin(etUsername.getText().toString(), etPassword.getText().toString());
 		}
 	};

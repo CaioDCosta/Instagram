@@ -43,6 +43,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 		this.listener = listener;
 	}
 
+
+
 	@NonNull
 	@Override
 	public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -85,7 +87,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 			}
 		});
 
-		Log.d("MainActivity", post.getImage().getUrl());
+		Log.d("LoginActivity", post.getImage().getUrl());
 
 		//TODO Make this less hacky?
 		Glide.with(context).load(post.getImage().getUrl().replace("http", "https"))

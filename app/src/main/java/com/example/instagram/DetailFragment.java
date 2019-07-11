@@ -38,8 +38,6 @@ import butterknife.ButterKnife;
 
 
 public class DetailFragment extends DialogFragment {
-
-
 	private Post post;
 	private ImageButton ibLikeParent;
 	private TextView tvLikeCountParent;
@@ -61,7 +59,16 @@ public class DetailFragment extends DialogFragment {
 		detailFragment.post = post;
 		detailFragment.ibLikeParent = ibLike;
 		detailFragment.tvLikeCountParent = tvLikeCount;
+		detailFragment.setRetainInstance(true);
 		return detailFragment;
+	}
+
+	@Override
+	public void onDestroyView() {
+		if (getDialog() != null && getRetainInstance()) {
+			getDialog().setDismissMessage(null);
+		}
+		super.onDestroyView();
 	}
 
 	@Override
@@ -100,13 +107,13 @@ public class DetailFragment extends DialogFragment {
 					@Override
 					public void done(ParseException e) {
 						if(e == null) {
-							Log.d("MainActivity", "Comment successful!");
+							Log.d("LoginActivity", "Comment successful!");
 							adapter.addComment(interaction);
 							rvComments.smoothScrollToPosition(0);
 							etComment.setText("");
 						}
 						else {
-							Log.e("MainActivity", "Comment failed");
+							Log.e("LoginActivity", "Comment failed");
 						}
 					}
 				});

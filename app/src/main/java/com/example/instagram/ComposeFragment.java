@@ -93,7 +93,7 @@ public class ComposeFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if(ivPicture.getDrawable() == null) {
-					Log.e("MainActivity", "No photo selected");
+					Log.e("LoginActivity", "No photo selected");
 					Toast.makeText(getContext(), "No photo!", Toast.LENGTH_SHORT).show();
 					return;
 				}
@@ -106,7 +106,7 @@ public class ComposeFragment extends Fragment {
 					public void done(ParseException e) {
 						if(e == null) {
 							listener.onPostComplete();
-							Log.d("MainActivity", "Post successful!");
+							Log.d("LoginActivity", "Post successful!");
 						}
 						else {
 							e.printStackTrace();

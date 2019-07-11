@@ -30,7 +30,7 @@ public class SignUpFragment extends Fragment {
 		// Required empty public constructor
 	}
 
-	// Interface for passing username and password back to MainActivity
+	// Interface for passing username and password back to LoginActivity
 	public interface Listener {
 		public void onSignUp(String username, String password);
 	}

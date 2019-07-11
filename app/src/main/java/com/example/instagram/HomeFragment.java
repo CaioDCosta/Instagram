@@ -32,8 +32,6 @@ import butterknife.ButterKnife;
 
 public class HomeFragment extends Fragment {
 
-	private static final String KEY_POSITION = "position";
-
 	private EndlessRecyclerViewScrollListener scrollListener;
 	private static final int PAGE_SIZE = 5;
 	private int page = 0;
@@ -62,20 +60,6 @@ public class HomeFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_home, container, false);
-	}
-
-	@Override
-	public void onSaveInstanceState(@NonNull Bundle outState) {
-		outState.putInt(KEY_POSITION, ((LinearLayoutManager) rvFeed.getLayoutManager()).findFirstCompletelyVisibleItemPosition());
-		super.onSaveInstanceState(outState);
-	}
-
-	@Override
-	public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-		super.onViewStateRestored(savedInstanceState);
-		if(savedInstanceState != null) {
-			rvFeed.smoothScrollToPosition(savedInstanceState.getInt(KEY_POSITION));
-		}
 	}
 
 	@Override
@@ -133,7 +117,7 @@ public class HomeFragment extends Fragment {
 	}
 
 	private void loadNextPage() {
-		Log.d("MainActivity", "Loading more data from API");
+		Log.d("LoginActivity", "Loading more data from API");
 		Post.Query query = new Post.Query();
 		query.withUser().limit(PAGE_SIZE).skip(page++ * PAGE_SIZE).byNewestFirst();
 		query.findInBackground(new FindCallback<Post>() {

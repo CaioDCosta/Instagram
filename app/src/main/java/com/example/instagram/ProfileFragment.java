@@ -121,10 +121,10 @@ public class ProfileFragment extends Fragment {
 			@Override
 			public void done(ParseException e) {
 				if(e == null) {
-					Log.d("MainActivity", "Profile picture successful!");
+					Log.d("LoginActivity", "Profile picture successful!");
 				}
 				else {
-					Log.e("MainActivity", "Profile picture failed");
+					Log.e("LoginActivity", "Profile picture failed");
 				}
 			}
 		});
