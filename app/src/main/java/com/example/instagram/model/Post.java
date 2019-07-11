@@ -46,9 +46,11 @@ public class Post extends ParseObject {
 	}
 	public void like() {
 		increment(KEY_LIKES, 1);
+		saveInBackground();
 	}
 	public void unlike() {
 		increment(KEY_LIKES, -1);
+		saveInBackground();
 	}
 
 	public static class Query extends ParseQuery<Post> {

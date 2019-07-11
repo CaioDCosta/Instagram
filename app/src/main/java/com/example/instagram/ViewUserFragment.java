@@ -1,69 +1,132 @@
-//package com.example.instagram;
-//
-//
-//import android.os.Bundle;
-//import android.support.annotation.NonNull;
-//import android.support.annotation.Nullable;
-//import android.support.v4.app.DialogFragment;
-//import android.support.v4.app.FragmentManager;
-//import android.support.v4.widget.SwipeRefreshLayout;
-//import android.support.v7.widget.LinearLayoutManager;
-//import android.support.v7.widget.RecyclerView;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.ImageButton;
-//import android.widget.TextView;
-//
-//import com.example.instagram.model.Post;
-//
-//import java.util.ArrayList;
-//
-//import butterknife.ButterKnife;
-//
-//public class ViewUserFragment extends DialogFragment {
-//
-//
-//	public ViewUserFragment() {
-//		// Required empty public constructor
-//	}
-//
-//
-//	@Override
-//	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//	                         Bundle savedInstanceState) {
-//		// Inflate the layout for this fragment
-//		return inflater.inflate(R.layout.fragment_view_user, container, false);
-//	}
-//
-//	@Override
-//	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//		ButterKnife.bind(this, view);
-//		posts = new ArrayList<Post>();
-//		// Create adapter passing in the posts
-//		adapter = new PostAdapter(posts, getContext(), new PostAdapter.OnCardClick() {
-//			@Override
-//			public void onCardClick(Post post, ImageButton ibLike, TextView tvLikeCount) {
-//				FragmentManager fm = getFragmentManager();
-//				DetailFragment detailFragment = DetailFragment.newInstance(post, ibLike, tvLikeCount);
-//				detailFragment.show(fm,null);
-//			}
-//		});
-//		// Attach the adapter to the recyclerview to populate items
-//		rvFeed.setAdapter(adapter);
-//		// Set layout manager to position the items
-//		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-//		rvFeed.setLayoutManager(linearLayoutManager);
-//		// Retain an instance for resetting state if needed
-//		scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
-//			@Override
-//			public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-//				loadNextPage();
-//			}
-//		};
-//		// Adds the scroll listener to RecyclerView
-//		rvFeed.addOnScrollListener(scrollListener);
-//
+package com.example.instagram;
+
+
+import android.content.DialogInterface;
+import android.graphics.Point;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.example.instagram.model.Post;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class ViewUserFragment extends DialogFragment {
+
+	private List<Post> posts;
+	private PostAdapter adapter;
+	private static final int PAGE_SIZE = 10;
+	private int page = 0;
+	private EndlessRecyclerViewScrollListener scrollListener;
+	private OnDismissListener listener;
+
+	private ParseUser user;
+
+	@BindView(R.id.rvProfile) RecyclerView rvProfile;
+
+	interface OnDismissListener {
+		public void onDismiss();
+	}
+
+	public ViewUserFragment() {
+		// Required empty public constructor
+	}
+
+	public static ViewUserFragment newInstance(ParseUser user) {
+		ViewUserFragment viewUserFragment = new ViewUserFragment();
+		viewUserFragment.user = user;
+		viewUserFragment.setRetainInstance(true);
+		return viewUserFragment;
+	}
+
+	public void setOnDismissListener(OnDismissListener listener) {
+		this.listener = listener;
+	}
+
+	@Override
+	public void onDismiss(DialogInterface dialog) {
+		super.onDismiss(dialog);
+		if(listener != null) listener.onDismiss();
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	                         Bundle savedInstanceState) {
+		// Inflate the layout for this fragment
+		this.getDialog().setCanceledOnTouchOutside(true);
+		return inflater.inflate(R.layout.fragment_view_user, container, false);
+	}
+
+	@Override
+	public void onDestroyView() {
+		if (getDialog() != null && getRetainInstance()) {
+			getDialog().setDismissMessage(null);
+		}
+		super.onDestroyView();
+	}
+
+	@Override
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		ButterKnife.bind(this, view);
+		posts = new ArrayList<Post>();
+		// Create adapter passing in the posts
+		adapter = new PostAdapter(posts, getContext(), new PostAdapter.OnPostClickListener() {
+			@Override
+			public void onCardClick(Post post, boolean isSelected) {
+				FragmentManager fm = getFragmentManager();
+				DetailFragment detailFragment = DetailFragment.newInstance(post, isSelected);
+				detailFragment.show(fm,null);
+			}
+
+			@Override
+			public void onProfileClick(ParseUser user) {
+				FragmentManager fm = getFragmentManager();
+				ViewUserFragment viewUserFragment = ViewUserFragment.newInstance(user);
+				viewUserFragment.setOnDismissListener(new ViewUserFragment.OnDismissListener() {
+					@Override
+					public void onDismiss() {
+						adapter.notifyItemRangeChanged(0, adapter.getItemCount());
+					}
+				});
+				viewUserFragment.show(fm,null);
+			}
+		}, true);
+		// Attach the adapter to the recyclerview to populate items
+		rvProfile.setAdapter(adapter);
+		// Set layout manager to position the items
+		GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+//		LinearLayoutManager gridLayoutManager = new LinearLayoutManager(getContext());
+		rvProfile.setLayoutManager(gridLayoutManager);
+		// Retain an instance for resetting state if needed
+		scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+			@Override
+			public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+				loadNextPage();
+			}
+		};
+		// Adds the scroll listener to RecyclerView
+		rvProfile.addOnScrollListener(scrollListener);
+		loadNextPage();
+
 //		// Set up swipe refresh listener
 //		swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //			@Override
@@ -77,5 +140,30 @@
 //				android.R.color.holo_green_light,
 //				android.R.color.holo_orange_light,
 //				android.R.color.holo_red_light);
-//	}
-//}
+	}
+
+	public void onResume() {
+		// Store access variables for window and blank point
+		Window window = getDialog().getWindow();
+		Point size = new Point();
+		// Store dimensions of the screen in `size`
+		Display display = window.getWindowManager().getDefaultDisplay();
+		display.getSize(size);
+		// Set the width of the dialog proportional to 100% of the screen width
+		window.setLayout((int) (size.x * .95), WindowManager.LayoutParams.WRAP_CONTENT);
+		window.setGravity(Gravity.CENTER);
+		// Call super onResume after sizing
+		super.onResume();
+	}
+
+	public void loadNextPage() {
+		Post.Query query = new Post.Query();
+		query.withUser().byUser(user).limit(PAGE_SIZE).skip(page++ * PAGE_SIZE).byNewestFirst();
+		query.findInBackground(new FindCallback<Post>() {
+			@Override
+			public void done(List<Post> objects, ParseException e) {
+				adapter.addAll(objects);
+			}
+		});
+	}
+}

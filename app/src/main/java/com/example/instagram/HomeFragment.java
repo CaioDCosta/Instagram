@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.instagram.model.Post;
@@ -29,11 +28,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class HomeFragment extends Fragment {
 
 	private EndlessRecyclerViewScrollListener scrollListener;
-	private static final int PAGE_SIZE = 5;
+	private static final int PAGE_SIZE = 10;
 	private int page = 0;
 	private List<Post> posts;
 	private PostAdapter adapter;
@@ -51,40 +52,54 @@ public class HomeFragment extends Fragment {
 	}
 
 	@Override
-	public void onCreate(@Nullable Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
-
-	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_home, container, false);
 	}
 
 	@Override
-	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+	public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
 		ButterKnife.bind(this, view);
 		posts = new ArrayList<Post>();
 		// Create adapter passing in the posts
-		adapter = new PostAdapter(posts, getContext(), new PostAdapter.OnCardClick() {
+		adapter = new PostAdapter(posts, getContext(), new PostAdapter.OnPostClickListener() {
 			@Override
-			public void onCardClick(final Post post, ImageButton ibLike, TextView tvLikeCount) {
+			public void onCardClick(final Post post, boolean isSelected) {
 				FragmentManager fm = getFragmentManager();
-				DetailFragment detailFragment = DetailFragment.newInstance(post, ibLike.isSelected());
+				DetailFragment detailFragment = DetailFragment.newInstance(post, isSelected);
 				detailFragment.setOnDismissListener(new DetailFragment.OnDismissListener() {
 					@Override
-					public void onChildDismissed() {
+					public void onDismiss() {
 						adapter.notifyItemRangeChanged(0, adapter.getItemCount());
 					}
 				});
 				detailFragment.show(fm,null);
 			}
-		});
+
+			@Override
+			public void onProfileClick(ParseUser user) {
+				FragmentManager fm = getFragmentManager();
+				ViewUserFragment viewUserFragment = ViewUserFragment.newInstance(user);
+				viewUserFragment.setOnDismissListener(new ViewUserFragment.OnDismissListener() {
+					@Override
+					public void onDismiss() {
+						adapter.notifyItemRangeChanged(0, adapter.getItemCount());
+					}
+				});
+				viewUserFragment.show(fm,null);
+			}
+		}, false);
 		// Attach the adapter to the recyclerview to populate items
-		rvFeed.setAdapter(adapter);
+
+		ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(adapter);
+		scaleAdapter.setFirstOnly(false);
+		AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(scaleAdapter);
+		alphaAdapter.setFirstOnly(false);
+		rvFeed.setAdapter(alphaAdapter);
 		// Set layout manager to position the items
 		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 		rvFeed.setLayoutManager(linearLayoutManager);
+
 		// Retain an instance for resetting state if needed
 		scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
 			@Override
@@ -128,10 +143,6 @@ public class HomeFragment extends Fragment {
 		query.findInBackground(new FindCallback<Post>() {
 			@Override
 			public void done(List<Post> objects, ParseException e) {
-//				for(Post post : objects) {
-////					posts.add(post);
-////					adapter.notifyItemInserted(adapter.getItemCount() - 1);
-////				}
 				adapter.addAll(objects);
 				if(swipeContainer.isRefreshing()) swipeContainer.setRefreshing(false);
 			}

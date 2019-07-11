@@ -57,7 +57,7 @@ public class DetailFragment extends DialogFragment {
 	@BindView(R.id.etComment)       EditText etComment;
 
 	interface OnDismissListener {
-		public void onChildDismissed();
+		public void onDismiss();
 	}
 
 	public void setOnDismissListener(OnDismissListener listener) {
@@ -67,7 +67,7 @@ public class DetailFragment extends DialogFragment {
 	@Override
 	public void onDismiss(DialogInterface dialog) {
 		super.onDismiss(dialog);
-		if(listener != null) listener.onChildDismissed();
+		if(listener != null) listener.onDismiss();
 	}
 
 	public static DetailFragment newInstance(Post post, boolean isLiked) {

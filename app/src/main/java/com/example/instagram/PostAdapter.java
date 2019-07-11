@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,40 +30,47 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
 	private List<Post> posts;
 	private Context context;
-	private OnCardClick listener;
+	private OnPostClickListener listener;
+	private boolean isGrid;
 
-	interface OnCardClick {
-		public void onCardClick(Post post, ImageButton ibLike, TextView tvLikeCount);
+	interface OnPostClickListener {
+		public void onCardClick(Post post, boolean isSelected);
+		public void onProfileClick(ParseUser user);
 	}
 
-	public PostAdapter(List<Post> posts, Context context, OnCardClick listener) {
+	public PostAdapter(List<Post> posts, Context context, OnPostClickListener listener, boolean isGrid) {
 		this.posts = posts;
 		this.context = context;
 		this.listener = listener;
+		this.isGrid = isGrid;
 	}
-
-
 
 	@NonNull
 	@Override
 	public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 		LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+		View view;
 
 		// Inflate the custom layout
-		final View view = inflater.inflate(R.layout.item_post, viewGroup, false);
+		if(isGrid) {
+			view = inflater.inflate(R.layout.item_post_grid, viewGroup, false);
+		} else {
+			view = inflater.inflate(R.layout.item_post, viewGroup, false);
+		}
+
 
 		// Return a new holder instance
 		final ViewHolder viewHolder = new ViewHolder(view);
 		viewHolder.cvBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				listener.onCardClick(viewHolder.post, viewHolder.ibLike, viewHolder.tvLikeCount);
+				listener.onCardClick(viewHolder.post, viewHolder.ibLike.isSelected());
 			}
 		});
 		viewHolder.ibComment.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				listener.onCardClick(viewHolder.post, viewHolder.ibLike, viewHolder.tvLikeCount);
+				listener.onCardClick(viewHolder.post, viewHolder.ibLike.isSelected());
 			}
 		});
 		return viewHolder;
@@ -81,9 +87,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 		viewHolder.tvUsername.setText(post.getUser().getUsername());
 		viewHolder.tvLikeCount.setText(String.valueOf(post.getLikes()));
 
-		Log.d("LoginActivity", post.getImage().getUrl());
-
-		//TODO Make this less hacky?
 		Glide.with(context).load(post.getImage().getUrl().replace("http", "https"))
 				.placeholder(android.R.drawable.ic_menu_report_image)
 				.error(android.R.drawable.ic_menu_report_image)
@@ -98,6 +101,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 				viewHolder.ibLike.setSelected(object != null);
 			}
 		});
+
 		viewHolder.ibLike.setOnClickListener(new OnClickLike(post, viewHolder.tvLikeCount));
 		if(profilePicture != null)
 			Glide.with(context).load(profilePicture.getUrl()
@@ -113,6 +117,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
 		viewHolder.tvDescription.setText(post.getDescription());
 		viewHolder.tvTime.setText(Time.getRelativeTimeAgo(post.getCreatedAt()));
+
+		viewHolder.tvUsername.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				listener.onProfileClick(viewHolder.post.getUser());
+			}
+		});
+		viewHolder.ivProfile.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				listener.onProfileClick(viewHolder.post.getUser());
+			}
+		});
 	}
 
 	@Override

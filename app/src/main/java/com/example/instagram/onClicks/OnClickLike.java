@@ -28,7 +28,6 @@ public class OnClickLike implements View.OnClickListener {
 		v.setSelected(!v.isSelected());
 		if (isLiked) {
 			tvLikeCount.setText(String.valueOf(likes - 1));
-			post.unlike();
 			Interaction.Query query = new Interaction.Query();
 			query.getLikes().byUser(ParseUser.getCurrentUser()).onPost(post);
 			query.getFirstInBackground(new GetCallback<Interaction>() {
@@ -37,6 +36,7 @@ public class OnClickLike implements View.OnClickListener {
 					if(e == null) {
 						try {
 							object.delete();
+							post.unlike();
 							Log.d("LoginActivity", "Unlike successful");
 						} catch (ParseException e1) {
 							e1.printStackTrace();
@@ -47,7 +47,6 @@ public class OnClickLike implements View.OnClickListener {
 		}
 		else {
 			tvLikeCount.setText(String.valueOf(likes + 1));
-			post.like();
 			Interaction interaction = new Interaction();
 			interaction.setComment("");
 			interaction.setPost(post);
@@ -56,6 +55,7 @@ public class OnClickLike implements View.OnClickListener {
 				@Override
 				public void done(ParseException e) {
 					if (e == null) {
+						post.like();
 						Log.d("LoginActivity", "Like successful");
 					} else {
 						Log.e("LoginActivity", "Like failed");
