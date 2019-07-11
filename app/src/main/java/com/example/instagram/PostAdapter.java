@@ -58,6 +58,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 				listener.onCardClick(viewHolder.post, viewHolder.ibLike);
 			}
 		});
+		viewHolder.ibComment.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				listener.onCardClick(viewHolder.post, viewHolder.ibLike);
+			}
+		});
 		return viewHolder;
 	}
 
@@ -77,12 +83,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 		Glide.with(context).load(post.getImage().getUrl().replace("http", "https"))
 				.placeholder(R.drawable.nav_logo_whiteout)
 				.error(R.drawable.nav_logo_whiteout)
-				.centerCrop().into(viewHolder.ivPicture);
+				.into(viewHolder.ivPicture);
 
 		ParseFile profilePicture = post.getUser().getParseFile("profilePicture");
 
 		Interaction.Query query = new Interaction.Query();
-		query.getLikes().onPost(post).withUser(ParseUser.getCurrentUser()).getFirstInBackground(new GetCallback<Interaction>() {
+		query.getLikes().onPost(post).byUser(ParseUser.getCurrentUser()).getFirstInBackground(new GetCallback<Interaction>() {
 			@Override
 			public void done(Interaction object, ParseException e) {
 				viewHolder.ibLike.setSelected(object != null);

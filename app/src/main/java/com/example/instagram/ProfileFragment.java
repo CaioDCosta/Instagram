@@ -73,8 +73,8 @@ public class ProfileFragment extends Fragment {
 	}
 
 	@Override
-	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-		ButterKnife.bind(this, view);
+	public void onStart() {
+		super.onStart();
 		btnSignOut.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -88,10 +88,10 @@ public class ProfileFragment extends Fragment {
 			ParseFile profilePicture = user.getParseFile("profilePicture");
 			if(profilePicture != null)
 				Glide.with(getContext()).load(profilePicture.getUrl()
-					.replace("http", "https"))
-					.placeholder(R.drawable.instagram_user_filled_24)
-					.error(R.drawable.instagram_user_filled_24)
-					.into(ivProfile);
+						.replace("http", "https"))
+						.placeholder(R.drawable.instagram_user_filled_24)
+						.error(R.drawable.instagram_user_filled_24)
+						.into(ivProfile);
 		}
 		btnAddPicture.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -104,7 +104,11 @@ public class ProfileFragment extends Fragment {
 				}
 			}
 		});
+	}
 
+	@Override
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+		ButterKnife.bind(this, view);
 	}
 
 	@Override

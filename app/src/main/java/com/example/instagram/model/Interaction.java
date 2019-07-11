@@ -15,16 +15,16 @@ public class Interaction extends ParseObject {
 	// Required empty constructor
 	public Interaction() {}
 
-//	// Getters
-//	public String getComment() {
-//		return getString(KEY_COMMMENT);
-//	}
-//	public Post getPost() {
-//		return (Post) getParseObject(KEY_POST);
-//	}
-//	public ParseUser getUser() {
-//		return getParseUser(KEY_USER);
-//	}
+	// Getters
+	public String getComment() {
+		return getString(KEY_COMMMENT);
+	}
+	public Post getPost() {
+		return (Post) getParseObject(KEY_POST);
+	}
+	public ParseUser getUser() {
+		return getParseUser(KEY_USER);
+	}
 
 	// Setters
 	public void setComment(String comment) {
@@ -57,8 +57,18 @@ public class Interaction extends ParseObject {
 			return this;
 		}
 
-		public Query withUser(ParseUser user) {
+		public Query byUser(ParseUser user) {
 			whereEqualTo(KEY_USER, user);
+			return this;
+		}
+
+		public Query withUser() {
+			include(KEY_USER);
+			return this;
+		}
+
+		public Query byNewestFirst() {
+			orderByDescending(KEY_CREATED);
 			return this;
 		}
 	}

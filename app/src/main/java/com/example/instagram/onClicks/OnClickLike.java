@@ -30,7 +30,7 @@ public class OnClickLike implements View.OnClickListener {
 		}
 		if (isLiked) {
 			Interaction.Query query = new Interaction.Query();
-			query.getLikes().withUser(ParseUser.getCurrentUser()).onPost(post);
+			query.getLikes().byUser(ParseUser.getCurrentUser()).onPost(post);
 			query.getFirstInBackground(new GetCallback<Interaction>() {
 				@Override
 				public void done(Interaction object, ParseException e) {

@@ -49,12 +49,12 @@
                 android:layout_marginEnd="32dp"
                 android:adjustViewBounds="true"
                 android:foreground="@drawable/iv_border"
-                android:scaleType="center"
+                android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="w,1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/clTop"
-                app:srcCompat="@drawable/nav_logo_whiteout" />
+                app:srcCompat="@android:drawable/ic_menu_report_image" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/clTop"
@@ -67,10 +67,10 @@
 
                 <ImageView
                     android:id="@+id/ivProfile"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/tvUsername"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/instagram_user_filled_24" />
@@ -90,10 +90,12 @@
                     android:id="@+id/tvUsername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="8dp"
                     android:text="Username"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivProfile"
                     app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
 
