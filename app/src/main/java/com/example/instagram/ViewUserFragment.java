@@ -17,10 +17,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.instagram.model.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -28,6 +32,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
@@ -43,6 +48,8 @@ public class ViewUserFragment extends DialogFragment {
 	private ParseUser user;
 
 	@BindView(R.id.rvProfile) RecyclerView rvProfile;
+	@BindView(R.id.ivProfile) ImageView ivProfile;
+	@BindView(R.id.tvUsername) TextView tvUsername;
 
 	interface OnDismissListener {
 		public void onDismiss();
@@ -131,6 +138,12 @@ public class ViewUserFragment extends DialogFragment {
 		};
 		// Adds the scroll listener to RecyclerView
 		rvProfile.addOnScrollListener(scrollListener);
+		tvUsername.setText(user.getUsername());
+		ParseFile profilePicture = user.getParseFile("profilePicture");
+		if(profilePicture != null)
+			Glide.with(getContext()).load(profilePicture.getUrl().replace("http", "https"))
+			.placeholder(R.drawable.instagram_user_filled_24).error(R.drawable.instagram_user_filled_24)
+			.bitmapTransform(new CropCircleTransformation(getContext())).into(ivProfile);
 		loadNextPage();
 //		// Set up swipe refresh listener
 //		swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

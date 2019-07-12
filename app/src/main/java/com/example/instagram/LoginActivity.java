@@ -1,6 +1,3 @@
-// Todo: Indeterminate progress bar on posting, restyle login in and sign pages,
-//  save post(?)
-
 package com.example.instagram;
 
 import android.content.Intent;
