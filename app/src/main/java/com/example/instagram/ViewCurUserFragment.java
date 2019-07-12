@@ -21,13 +21,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class ViewCurUserFragment extends Fragment {
 	private List<Post> posts;
 	private PostAdapter adapter;
-	private static final int PAGE_SIZE = 10;
+	private static final int PAGE_SIZE = 20;
 	private int page = 0;
 	private EndlessRecyclerViewScrollListener scrollListener;
 
@@ -84,14 +82,9 @@ public class ViewCurUserFragment extends Fragment {
 			}
 		}, true);
 		// Attach the adapter to the recyclerview to populate items
-		AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(adapter);
-		alphaInAnimationAdapter.setFirstOnly(false);
-		ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(alphaInAnimationAdapter);
-		scaleInAnimationAdapter.setFirstOnly(false);
-		rvProfile.setAdapter(scaleInAnimationAdapter);
+		rvProfile.setAdapter(adapter);
 		// Set layout manager to position the items
 		StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-//		LinearLayoutManager gridLayoutManager = new LinearLayoutManager(getContext());
 		rvProfile.setLayoutManager(gridLayoutManager);
 		// Retain an instance for resetting state if needed
 		scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {

@@ -111,12 +111,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 				.placeholder(R.drawable.instagram_user_filled_24)
 				.error(R.drawable.instagram_user_filled_24)
 				.bitmapTransform(new CropCircleTransformation(context))
-				.fitCenter().into(viewHolder.ivProfile);
+				.into(viewHolder.ivProfile);
 		else {
 			Glide.with(context).load(R.drawable.instagram_user_filled_24)
 					.error(R.drawable.instagram_user_filled_24)
 					.bitmapTransform(new CropCircleTransformation(context))
-					.fitCenter().into(viewHolder.ivProfile);
+					.into(viewHolder.ivProfile);
 		}
 
 		viewHolder.tvDescription.setText(post.getDescription());
@@ -147,6 +147,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 	}
 
 	public void addAll(List<Post> list) {
+		if(posts == null) return;
 		posts.addAll(list);
 		notifyDataSetChanged();
 	}

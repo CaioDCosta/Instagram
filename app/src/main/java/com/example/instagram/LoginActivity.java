@@ -4,10 +4,14 @@
 package com.example.instagram;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
@@ -15,18 +19,22 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class LoginActivity extends AppCompatActivity
 		implements SignUpFragment.Listener, LoginFragment.Listener {
 
 	// Fragments
-	private LoginFragment loginFragment = LoginFragment.newInstance();;
-	private SignUpFragment signUpFragment = SignUpFragment.newInstance();
-
-
+	private FragmentManager fm = getSupportFragmentManager();
+	private LoginFragment loginFragment;
+	private SignUpFragment signUpFragment;
 
 	// Fragment Tags
 	private static final String FRAGMENT_KEY_LOGIN = "login";
 	private static final String FRAGMENT_KEY_SIGNUP = "signup";
+
+	@BindView(R.id.ivLogo) ImageView ivLogo;
 
 	// SignupFragment Listeners
 	@Override
@@ -53,8 +61,33 @@ public class LoginActivity extends AppCompatActivity
 			finish();
 		}
 		setContentView(R.layout.activity_login);
-		getSupportFragmentManager().beginTransaction().add(R.id.flPlaceholder, loginFragment, FRAGMENT_KEY_LOGIN).commit();
+		ButterKnife.bind(this);
+
+		if(savedInstanceState != null) {
+			loginFragment = (LoginFragment) fm.findFragmentByTag(FRAGMENT_KEY_LOGIN);
+			signUpFragment = (SignUpFragment) fm.findFragmentByTag(FRAGMENT_KEY_SIGNUP);
+		}
+		if(loginFragment == null)
+			loginFragment = LoginFragment.newInstance();
+		if(signUpFragment == null)
+			signUpFragment = SignUpFragment.newInstance();
+
+		ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) ivLogo.getLayoutParams();
+		switch(getResources().getConfiguration().orientation) {
+			case Configuration.ORIENTATION_PORTRAIT:
+				params.verticalBias = 0.35f; // here is one modification for example. modify anything else you want :)
+				ivLogo.setLayoutParams(params);
+				break;
+			case Configuration.ORIENTATION_LANDSCAPE:
+				params.verticalBias = 0.0f; // here is one modification for example. modify anything else you want :)
+				ivLogo.setLayoutParams(params);
+				break;
+		}
+		if(!(loginFragment.isAdded() || signUpFragment.isAdded()))
+			getSupportFragmentManager().beginTransaction().add(R.id.flPlaceholder, loginFragment, FRAGMENT_KEY_LOGIN).commit();
 	}
+
+
 
 	private void signup(final String username, final String password) {
 		ParseUser user = new ParseUser();

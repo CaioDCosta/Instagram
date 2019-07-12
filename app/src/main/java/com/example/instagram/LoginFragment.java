@@ -45,7 +45,9 @@ public class LoginFragment extends Fragment {
 	}
 
 	public static LoginFragment newInstance() {
-		return new LoginFragment();
+		LoginFragment loginFragment = new LoginFragment();
+		loginFragment.setRetainInstance(true);
+		return loginFragment;
 	}
 
 	interface Listener {

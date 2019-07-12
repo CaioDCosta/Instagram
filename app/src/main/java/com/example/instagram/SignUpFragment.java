@@ -36,7 +36,9 @@ public class SignUpFragment extends Fragment {
 	}
 
 	public static SignUpFragment newInstance() {
-		return new SignUpFragment();
+		SignUpFragment signUpFragment = new SignUpFragment();
+		signUpFragment.setRetainInstance(true);
+		return signUpFragment;
 	}
 
 	// Store the listener (activity) that will have events fired once the fragment is attached

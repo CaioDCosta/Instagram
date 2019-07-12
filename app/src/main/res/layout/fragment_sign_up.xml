@@ -1,59 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tiUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias=".5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".2">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/etUsername"
-            style="@style/RegEditTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Username"
-            android:singleLine="true" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tiPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/tiUsername"
-        app:layout_constraintStart_toStartOf="@+id/tiUsername"
-        app:layout_constraintTop_toBottomOf="@+id/tiUsername"
-        app:passwordToggleEnabled="true">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:singleLine="true"
-            style="@style/RegEditTextStyle"/>
-
-    </android.support.design.widget.TextInputLayout>
+    android:layout_height="wrap_content">
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/tiPasswordConfirm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/tiUsername"
-        app:layout_constraintStart_toStartOf="@+id/tiUsername"
+        android:layout_marginTop="8dp"
+        app:boxBackgroundColor="@color/grey_2"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/tiPassword"
+        app:layout_constraintStart_toStartOf="@+id/tiPassword"
         app:layout_constraintTop_toBottomOf="@+id/tiPassword"
         app:passwordToggleEnabled="true">
 
@@ -62,21 +26,100 @@
             style="@style/RegEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:height="10sp"
             android:hint="Confirm Password"
             android:inputType="textPassword"
-            android:singleLine="true" />
+            android:maxHeight="10sp"
+            android:minHeight="10sp"
+            android:singleLine="true"
+            android:textColorHighlight="@color/cta_highlight_background_color" />
 
     </android.support.design.widget.TextInputLayout>
 
-    <Button
-        android:id="@+id/btnSignup"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tiUsername"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@android:drawable/btn_default"
-        android:text="Signup"
+        app:boxBackgroundColor="@color/grey_2_70_transparent"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiPasswordConfirm" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/etUsername"
+            style="@style/RegEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="10sp"
+            android:hint="Username"
+            android:maxHeight="10sp"
+            android:minHeight="10sp"
+            android:singleLine="true"
+            android:textColorHighlight="@color/cta_highlight_background_color" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tiPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:boxBackgroundColor="@color/grey_2"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/tiUsername"
+        app:layout_constraintStart_toStartOf="@+id/tiUsername"
+        app:layout_constraintTop_toBottomOf="@+id/tiUsername"
+        app:passwordToggleEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/etPassword"
+            style="@style/RegEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="10sp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:maxHeight="10sp"
+            android:minHeight="10sp"
+            android:singleLine="true"
+            android:textColorHighlight="@color/cta_highlight_background_color" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:clipChildren="false"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiPasswordConfirm">
+
+        <Button
+            android:id="@+id/btnSignup"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="66dp"
+            android:layout_marginEnd="66dp"
+            android:background="@drawable/btn_login"
+            android:padding="8dp"
+            android:shadowColor="#204B75"
+            android:shadowDx="20"
+            android:shadowDy="20"
+            android:shadowRadius="25"
+            android:text="Signup"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
