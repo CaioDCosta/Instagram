@@ -41,6 +41,7 @@ The following **additional** features are implemented:
 - [X] Home feed position persists through tab changes
 - [X] Detail view is accessible from profile grid photos
 - [X] Likes and comments persist through Parse backend
+- [X] Most UI elements persist and adapt to orientation/configuration changes
 
 ## Video Walkthrough
 
