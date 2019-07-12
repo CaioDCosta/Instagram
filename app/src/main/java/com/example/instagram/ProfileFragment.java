@@ -23,6 +23,8 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -86,12 +88,15 @@ public class ProfileFragment extends Fragment {
 		if(user != null) {
 			tvUsername.setText(user.getUsername());
 			ParseFile profilePicture = user.getParseFile("profilePicture");
-			if(profilePicture != null)
-				Glide.with(getContext()).load(profilePicture.getUrl().replace("http", "https"))
+			if(profilePicture != null) {
+				String url = profilePicture.getUrl();
+				if(url != null)
+					Glide.with(getContext()).load(url.replace("http", "https"))
 						.placeholder(R.drawable.instagram_user_filled_24)
 						.error(R.drawable.instagram_user_filled_24)
 						.bitmapTransform(new CropCircleTransformation(getContext()))
 						.into(ivProfile);
+			}
 		}
 		btnAddPicture.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -114,9 +119,9 @@ public class ProfileFragment extends Fragment {
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Bitmap selectedImage = Photos.onActivityResult(requestCode, resultCode, data, getActivity(), null, ivProfile);
+		final Bitmap selectedImage = Photos.onActivityResult(requestCode, resultCode, data, getActivity(), null, ivProfile);
 		if(selectedImage == null) return;
-		ivProfile.setImageBitmap(selectedImage);
+		Glide.with(getContext()).load(bitmapToByte(selectedImage)).bitmapTransform(new CropCircleTransformation(getContext())).into(ivProfile);
 		ParseUser.getCurrentUser().put("profilePicture", Photos.getParseFile(selectedImage));
 		ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
 			@Override
@@ -129,5 +134,12 @@ public class ProfileFragment extends Fragment {
 				}
 			}
 		});
+	}
+
+	private byte[] bitmapToByte(Bitmap bitmap){
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+		byte[] byteArray = stream.toByteArray();
+		return byteArray;
 	}
 }
